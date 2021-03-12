@@ -6,6 +6,6 @@ import java.util.Arrays;
 
 public  class  Entry {
     public  static  void  main(String[] args) throws IOException {
-        System.out.println(Arrays.toString(new CourdeauInstanceReader().readData()));
+        System.out.println(Arrays.toString(CourdeauInstanceReader.getReader().readData()));
     }
 }

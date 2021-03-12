@@ -9,9 +9,15 @@ import java.io.*;
 import java.util.Arrays;
 
 public class CourdeauInstanceReader extends DataReader{
+    private static DataReader Instance;
 
-    public static void main(String[] args) throws IOException {
-        new CourdeauInstanceReader().readData();
+    private CourdeauInstanceReader(){}
+
+    public static DataReader getReader() {
+        if(Instance == null){
+            Instance = new CourdeauInstanceReader();
+        }
+        return Instance;
     }
 
     public Problem[] readData() throws IOException {
