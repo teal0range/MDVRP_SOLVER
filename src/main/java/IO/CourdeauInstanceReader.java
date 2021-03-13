@@ -21,7 +21,7 @@ public class CourdeauInstanceReader extends DataReader{
     }
 
     public Problem[] readData() throws IOException {
-        String dataRoot = "src/main/resources/data/";
+        String dataRoot = "src/main/resources/Data/";
         File file = new File(dataRoot);
         File[] fs = file.listFiles();
         assert fs != null;
