@@ -1,8 +1,8 @@
 package IO;
 
-import Common.Customer;
-import Common.Depot;
-import Common.Node;
+import Common.Node.Customer;
+import Common.Node.Depot;
+import Common.Node.Node;
 import Common.Problem;
 
 import java.io.*;
@@ -28,6 +28,7 @@ public class CourdeauInstanceReader extends DataReader{
         Problem []problem = new Problem[fs.length];
         for (int i = 0; i < fs.length; i++) {
             File f = fs[i];
+            String name = f.getName();
             BufferedReader br = new BufferedReader(new FileReader(f));
             String []desc = br.readLine().split(" ");
             problem[i] = new Problem(
@@ -64,6 +65,7 @@ public class CourdeauInstanceReader extends DataReader{
                 );
             }
             problem[i].setNodes(nodes);
+            problem[i].setName(name);
         }
         logger.info(String.format("%d DataSets Loaded",fs.length));
         logger.info(String.format("DataSets List: %s",Arrays.toString(fs)));
