@@ -21,6 +21,6 @@ public class Customer extends Node{
                 ", x=" + x +
                 ", y=" + y +
                 ", duration=" + duration +
-                '}';
+                "}\n";
     }
 }

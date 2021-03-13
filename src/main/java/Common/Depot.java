@@ -24,6 +24,6 @@ public class Depot extends Node{
                 ", x=" + x +
                 ", y=" + y +
                 ", duration=" + duration +
-                '}';
+                "}\n";
     }
 }
