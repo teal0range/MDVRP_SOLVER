@@ -1,8 +1,8 @@
-package Common;
+package Common.Node;
 
 public class Depot extends Node{
-    int maxVehicleLoad;
-    int maxDuration;
+    public int maxVehicleLoad;
+    public int maxDuration;
 
     public Depot(int id, double x, double y, int duration, int maxVehicleLoad, int maxDuration) {
         super(id, x, y, duration);
@@ -24,6 +24,6 @@ public class Depot extends Node{
                 ", x=" + x +
                 ", y=" + y +
                 ", duration=" + duration +
-                "}\n";
+                "}";
     }
 }
