@@ -1,12 +1,12 @@
-package Common;
+package Common.Node;
 
 import java.util.Objects;
 
 public abstract class Node {
-    int id;
-    double x;
-    double y;
-    int duration;
+    public int id;
+    public double x;
+    public double y;
+    public int duration;
 
     public Node(int id, double x, double y, int duration) {
         this.id = id;

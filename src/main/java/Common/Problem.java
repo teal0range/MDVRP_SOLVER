@@ -1,14 +1,23 @@
 package Common;
 
+import Common.Node.Customer;
+import Common.Node.Depot;
+import Common.Node.Node;
+import Constraints.Constraint;
+
 import java.util.Arrays;
+import java.util.List;
 
 public class Problem {
-    Node []nodes;
-    int type;
-    int vehicleLimit;
-    int customerNumber;
-    int depotsNumber;
-    double [][]distances;
+    public Node[]nodes;
+    public Depot[]depots;
+    public Customer[]customers;
+    public int type;
+    public int vehicleLimit;
+    public int customerNumber;
+    public int depotsNumber;
+    public double [][]distances;
+    public String name = "";
 
     public Problem(int type, int vehicleLimit, int customerNumber, int depotsNumber) {
         this.type = type;
@@ -17,12 +26,16 @@ public class Problem {
         this.depotsNumber = depotsNumber;
     }
 
-    public double getDistance(int idx,int idy){
-        return distances[idx][idy];
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getDistance(int idx, int idy){
+        return distances[idx-1][idy-1];
     }
 
     public double getDistance(Node a,Node b){
-        return distances[a.id][b.id];
+        return getDistance(a.id,b.id);
     }
 
     public void setNodes(Node[] nodes) {
@@ -31,6 +44,16 @@ public class Problem {
         for (int i = 0; i < nodes.length; i++) {
             for (int j = 0; j < nodes.length; j++) {
                 distances[i][j] = nodeDistance(nodes[i],nodes[j]);
+            }
+        }
+        depots = new Depot[depotsNumber];
+        customers = new Customer[customerNumber];
+        int depotPtr = 0, cusPtr = 0;
+        for (Node node:nodes){
+            if (!node.isDepot()){
+                customers[cusPtr++] = (Customer) node;
+            }else {
+                depots[depotPtr++] = (Depot) node;
             }
         }
     }
@@ -54,11 +77,12 @@ public class Problem {
     @Override
     public String toString() {
         return "Problem{" +
-                "\nnodes=" + Arrays.toString(nodes) +
-                ",\ntype=" + type +
-                ",\nvehicleLimit=" + vehicleLimit +
-                ",\ncustomerNumber=" + customerNumber +
-                ",\ndepotsNumber=" + depotsNumber +
-                "}\n";
+                "name=" + name +
+                ",nodes=" + Arrays.toString(nodes) +
+                ",type=" + type +
+                ",vehicleLimit=" + vehicleLimit +
+                ",customerNumber=" + customerNumber +
+                ",depotsNumber=" + depotsNumber +
+                "}";
     }
 }
