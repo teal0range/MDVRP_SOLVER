@@ -23,6 +23,26 @@ public class Route {
         this.end = route.end;
     }
 
+    public Node getNode(int pos){
+        return this.route.get(pos);
+    }
+
+    public int getLength(){
+        return route.size();
+    }
+
+    public void addNode(int pos,Node node){
+        this.route.add(pos, node);
+    }
+
+    public void removeNode(int pos){
+        this.route.remove(pos);
+    }
+
+    public void removeNode(Node node){
+        this.route.remove(node);
+    }
+
     @Override
     public String toString() {
         return "Route{" +

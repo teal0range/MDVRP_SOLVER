@@ -26,4 +26,5 @@ public abstract class BaseOperator {
     }
 
     public abstract void operate(Solution sol);
+    public abstract void singleOperate(operateContext context);
 }

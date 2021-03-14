@@ -19,4 +19,7 @@ public class Solution {
         return costCalculator.getCost();
     }
 
+    public ArrayList<Route> getSol() {
+        return sol;
+    }
 }
