@@ -22,4 +22,13 @@ public class Solution {
     public ArrayList<Route> getSol() {
         return sol;
     }
+
+    @Override
+    public String toString() {
+        return "Solution{" +
+                "sol=" + sol +
+                ", problem=" + problem +
+                ", costCalculator=" + costCalculator +
+                '}';
+    }
 }
