@@ -12,6 +12,6 @@ public class InitialSolutionGeneratorTest extends TestCase {
         Problem[] data = CourdeauInstanceReader.getReader().readData();
         Problem p01 = data[0];
         Solution solution = new InitialSolutionGenerator(p01).getSolution();
-        assertEquals(solution.getSol().size(),p01.customerNumber);
+        assertEquals(solution.getRoutes().size(),p01.customerNumber);
     }
 }

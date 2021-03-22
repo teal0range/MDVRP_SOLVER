@@ -4,14 +4,15 @@ package Common;
 import Common.Node.Node;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Route {
-    public ArrayList<Node> route;
+    public List<Node> route;
     public Node start;
     public Node end;
 
 
-    public Route(ArrayList<Node> route, Node start, Node end) {
+    public Route(List<Node> route, Node start, Node end) {
         this.route = route;
         this.start = start;
         this.end = end;
@@ -31,15 +32,25 @@ public class Route {
         return route.size();
     }
 
+    public void subNode(int pos,Node node){
+        this.route.set(pos, node);
+    }
+
+    public void conNode(int st, int ed){
+        List<Node> subList = this.route.subList(0, st+1);
+        subList.addAll(this.route.subList(ed,this.route.size()));
+        this.route = subList;
+    }
+
     public void addNode(int pos,Node node){
         this.route.add(pos, node);
     }
 
-    public void removeNode(int pos){
+    public void rmNode(int pos){
         this.route.remove(pos);
     }
 
-    public void removeNode(Node node){
+    public void rmNode(Node node){
         this.route.remove(node);
     }
 

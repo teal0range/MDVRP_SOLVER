@@ -19,7 +19,7 @@ public class InnerShift10 extends InnerOperator{
 
     @Override
     public void operate(Solution sol) {
-        ArrayList<Route> routesList = sol.getSol();
+        ArrayList<Route> routesList = sol.getRoutes();
         for (Route route:routesList){
             executeValidOperation(route);
         }
