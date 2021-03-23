@@ -1,12 +1,11 @@
 package Operators;
 
-import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
-import Constraints.HardConstraint;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class InnerShift10 extends InnerOperator{
 
@@ -16,14 +15,14 @@ public class InnerShift10 extends InnerOperator{
 
     @Override
     public void operate(Solution sol) {
-        ArrayList<Route> routesList = sol.getRoutes();
+        List<Route> routesList = sol.getRoutes();
         for (Route route:routesList){
             executeValidOperation(route);
         }
     }
 
     @Override
-    public void singleOperate(operateContext context) {
+    public void singleOperate(OperateContext context) {
 
     }
 

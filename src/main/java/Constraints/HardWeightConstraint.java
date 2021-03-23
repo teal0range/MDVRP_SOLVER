@@ -1,7 +1,6 @@
 package Constraints;
 
-import Common.Node.Node;
-import Operators.operateContext;
+import Operators.OperateContext;
 
 public abstract class HardWeightConstraint implements HardConstraint {
     public double weightLimit;
@@ -11,5 +10,5 @@ public abstract class HardWeightConstraint implements HardConstraint {
     }
 
     @Override
-    public abstract ConsStatus fulfilled(operateContext context);
+    public abstract ConsStatus fulfilled(OperateContext context);
 }

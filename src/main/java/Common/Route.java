@@ -25,10 +25,14 @@ public class Route {
     }
 
     public Node getNode(int pos){
-        return this.route.get(pos);
+        if (pos < 0) {
+            return this.start;
+        }else if (pos < this.route.size()) {
+            return this.route.get(pos);
+        }else return this.end;
     }
 
-    public int getLength(){
+    public int length(){
         return route.size();
     }
 

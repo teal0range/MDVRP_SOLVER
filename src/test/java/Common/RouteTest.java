@@ -34,7 +34,7 @@ public class RouteTest {
     @Test
     public void testConNode() {
         route.conNode(1,9);
-        Assert.assertEquals(3, route.getLength());
+        Assert.assertEquals(3, route.length());
     }
 
     @Test

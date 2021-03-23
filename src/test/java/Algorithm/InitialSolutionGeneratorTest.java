@@ -11,7 +11,7 @@ public class InitialSolutionGeneratorTest extends TestCase {
     public void testSingleNodeGenerate() throws IOException {
         Problem[] data = CourdeauInstanceReader.getReader().readData();
         Problem p01 = data[0];
-        Solution solution = new InitialSolutionGenerator(p01).getSolution();
+        Solution solution = new InitializeSolution(p01).getSolution();
         assertEquals(solution.getRoutes().size(),p01.customerNumber);
     }
 }
