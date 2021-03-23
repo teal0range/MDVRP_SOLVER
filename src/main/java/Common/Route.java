@@ -10,7 +10,11 @@ public class Route {
     public List<Node> route;
     public Node start;
     public Node end;
+    private int weight;
 
+    public int getWeight() {
+        return weight;
+    }
 
     public Route(List<Node> route, Node start, Node end) {
         this.route = route;
@@ -22,6 +26,7 @@ public class Route {
         this.route = new ArrayList<>(route.route);
         this.start = route.start;
         this.end = route.end;
+        this.weight = route.getWeight();
     }
 
     public Node getNode(int pos){
