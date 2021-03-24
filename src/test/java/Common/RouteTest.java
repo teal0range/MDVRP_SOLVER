@@ -32,6 +32,13 @@ public class RouteTest {
     }
 
     @Test
+    public void testSubNodeChange() {
+        route.subNode(5,new Customer(12,12,10-12,1,12));
+        Assert.assertEquals(1, this.route.getTimeCost());
+        Assert.assertEquals(102, this.route.getWeight());
+    }
+
+    @Test
     public void testConNode() {
         route.conNode(1,9);
         Assert.assertEquals(3, route.length());

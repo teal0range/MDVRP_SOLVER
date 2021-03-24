@@ -68,7 +68,10 @@ public class Route {
     }
 
     public void subNode(int pos, Node node){
+        Node oldNode = this.route.get(pos);
         this.route.set(pos, node);
+        update(-((Customer)oldNode).need+((Customer)node).need,
+                -oldNode.duration+node.duration);
     }
 
     public void conNode(int st, int ed){
@@ -83,7 +86,10 @@ public class Route {
     }
 
     public void rmNode(int pos){
+        Node node = this.route.get(pos);
         this.route.remove(pos);
+        update(-((Customer) node).need, -node.duration);
+
     }
 
     public void rmNode(Node node){
