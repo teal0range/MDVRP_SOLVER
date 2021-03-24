@@ -4,11 +4,9 @@ import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 
-import java.util.Arrays;
-
 public class OperateContext {
     public enum operatorType{
-        INSERT
+        INSERT,SUBSTITUTE
     }
     public operatorType type;
     public Problem problem;

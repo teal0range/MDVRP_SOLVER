@@ -1,5 +1,4 @@
 import Algorithm.GreedyGenerator;
-import Algorithm.InitializeSolution;
 import Common.Problem;
 import Common.Solution;
 import IO.CourdeauInstanceReader;
