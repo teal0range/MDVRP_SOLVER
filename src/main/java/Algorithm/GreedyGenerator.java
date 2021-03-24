@@ -78,12 +78,12 @@ public class GreedyGenerator extends Generator{
             if (minRouteCost < minInsertCost||bestContext==null){
                 assert bestDepot!=null;
                 Route route = new Route(new ArrayList<>(Collections.singletonList(customer)),bestDepot,bestDepot);
-                        logger.debug(String.format("new route %d added:%d->%d->%d",
-                                route.hashCode(), bestDepot.id, customer.id, bestDepot.id));
                 solution.addRoute(route);
+                        logger.debug(String.format("new route %d added:%d->%d->%d",
+                                route.getId(), bestDepot.id, customer.id, bestDepot.id));
             }else {
                 logger.debug(String.format("customer: %d insert to pos %d of route %d",
-                        bestContext.operateNodes[0].id,bestContext.operatePos[0],bestContext.mainRoute.hashCode()));
+                        bestContext.operateNodes[0].id,bestContext.operatePos[0],bestContext.mainRoute.getId()));
                 bestContext.mainRoute.addNode(bestContext.operatePos[0],bestContext.operateNodes[0]);
             }
         }

@@ -8,11 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Route {
+    private int id;
     private List<Node> route;
     public Node start;
     public Node end;
     private int weight;
     private int timeCost;
+
+    void setId(int id){
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public int getWeight() {
         return weight;
@@ -39,6 +48,7 @@ public class Route {
         this.end = route.end;
         this.weight = route.getWeight();
         this.timeCost = route.getTimeCost();
+        this.id = route.getId();
     }
 
     public Node getNode(int pos){
@@ -88,9 +98,12 @@ public class Route {
     @Override
     public String toString() {
         return "Route{" +
-                "route=" + route +
+                "id=" + id +
+                ", route=" + route +
                 ", start=" + start +
                 ", end=" + end +
+                ", weight=" + weight +
+                ", timeCost=" + timeCost +
                 '}';
     }
 }
