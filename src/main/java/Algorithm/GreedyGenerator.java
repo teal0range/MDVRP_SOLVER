@@ -7,6 +7,7 @@ import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import Constraints.ConstraintManager;
+import Constraints.HardConstraint;
 import Constraints.InsertionConstraints.InsertionConstraintManager;
 import Constraints.InsertionConstraints.InsertionSoftCostConstraint;
 import Constraints.SoftConstraint;
@@ -53,6 +54,7 @@ public class GreedyGenerator extends Generator{
                 context.setMainRoute(route).setOperateNodes(0,customer);
                 for (int i = 0; i <= route.length(); i++) {
                     context.setOperatePos(0,i);
+                    if (constraintManager.fulfilled(context)!= HardConstraint.ConsStatus.FULFILLED)continue;
                     double costChg = costOfInsertion(context);
                     if (minInsertCost > costChg){
                         minInsertCost = costChg;
@@ -73,14 +75,13 @@ public class GreedyGenerator extends Generator{
             if (bestContext==null&&bestDepot==null){
                 logger.error("There's no valid operations, process exists");
             }
-            if (minRouteCost < minInsertCost){
+            if (minRouteCost < minInsertCost||bestContext==null){
                 assert bestDepot!=null;
                 Route route = new Route(new ArrayList<>(Collections.singletonList(customer)),bestDepot,bestDepot);
                         logger.debug(String.format("new route %d added:%d->%d->%d",
                                 route.hashCode(), bestDepot.id, customer.id, bestDepot.id));
                 solution.addRoute(route);
             }else {
-                assert bestContext!=null;
                 logger.debug(String.format("customer: %d insert to pos %d of route %d",
                         bestContext.operateNodes[0].id,bestContext.operatePos[0],bestContext.mainRoute.hashCode()));
                 bestContext.mainRoute.addNode(bestContext.operatePos[0],bestContext.operateNodes[0]);

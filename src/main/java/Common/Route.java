@@ -1,32 +1,44 @@
 package Common;
 
 
+import Common.Node.Customer;
 import Common.Node.Node;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Route {
-    public List<Node> route;
+    private List<Node> route;
     public Node start;
     public Node end;
     private int weight;
+    private int timeCost;
 
     public int getWeight() {
         return weight;
+    }
+
+    public int getTimeCost() {
+        return timeCost;
     }
 
     public Route(List<Node> route, Node start, Node end) {
         this.route = route;
         this.start = start;
         this.end = end;
+        this.weight = 0;
+        for (Node node:route) {
+            this.weight += ((Customer) node).need;
+            this.timeCost += node.duration;
+        }
     }
 
     public Route(Route route){
-        this.route = new ArrayList<>(route.route);
+        this.route = new ArrayList<>(route.getRoute());
         this.start = route.start;
         this.end = route.end;
         this.weight = route.getWeight();
+        this.timeCost = route.getTimeCost();
     }
 
     public Node getNode(int pos){
@@ -41,7 +53,11 @@ public class Route {
         return route.size();
     }
 
-    public void subNode(int pos,Node node){
+    public List<Node> getRoute() {
+        return new ArrayList<>(route);
+    }
+
+    public void subNode(int pos, Node node){
         this.route.set(pos, node);
     }
 
@@ -53,6 +69,7 @@ public class Route {
 
     public void addNode(int pos,Node node){
         this.route.add(pos, node);
+        update(((Customer) node).need, node.duration);
     }
 
     public void rmNode(int pos){
@@ -61,6 +78,11 @@ public class Route {
 
     public void rmNode(Node node){
         this.route.remove(node);
+    }
+
+    public void update(int weightChg,int timeChg){
+        this.weight += weightChg;
+        this.timeCost += timeChg;
     }
 
     @Override

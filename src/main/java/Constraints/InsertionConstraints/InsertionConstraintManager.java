@@ -20,6 +20,7 @@ public class InsertionConstraintManager extends ConstraintManager{
     private InsertionConstraintManager() {
         constraints = new ArrayList<>();
         constraints.add(new InsertionHardWeightConstraint());
+        constraints.add(new InsertionHardTimeConstraint());
     }
 
     @Override
