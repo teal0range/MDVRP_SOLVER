@@ -12,7 +12,6 @@ import Constraints.InsertionConstraints.InsertionConstraintManager;
 import Constraints.InsertionConstraints.InsertionSoftCostConstraint;
 import Constraints.SoftConstraint;
 import Operators.OperateContext;
-import org.apache.log4j.Level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +33,7 @@ public class GreedyGenerator extends Generator{
         executeGreedyAlgo(solution);
         return solution;
     }
+
 
     private Solution initSolution(){
         List<Route> routes = new ArrayList<>();
