@@ -1,10 +1,10 @@
 package Constraints.InsertionConstraints;
 
 import Common.Node.Depot;
-import Constraints.HardWeightConstraint;
+import Constraints.HardTimeConstraint;
 import Operators.OperateContext;
 
-public class InsertionHardTimeConstraint extends HardWeightConstraint {
+public class InsertionHardTimeConstraint extends HardTimeConstraint {
     @Override
     public ConsStatus fulfilled(OperateContext context) {
         int maxDuration = ((Depot)context.mainRoute.start).maxDuration;

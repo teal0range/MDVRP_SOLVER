@@ -15,6 +15,9 @@ public class OperateContext {
     public Node[] operateNodes;
     public Integer[] operatePos;
 
+    /**
+     * 建造者模式，用set方法设置类参数，防止构造函数参数过长
+     */
     public static class Builder{
         operatorType type;
         public Route mainRoute;
