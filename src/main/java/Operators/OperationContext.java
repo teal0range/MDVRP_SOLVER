@@ -4,7 +4,7 @@ import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 
-public class OperateContext {
+public class OperationContext {
     public enum operatorType{
         INSERT,SUBSTITUTE
     }
@@ -26,7 +26,7 @@ public class OperateContext {
         Integer[] operatePos;
         Problem problem;
 
-        public Builder(OperateContext context){
+        public Builder(OperationContext context){
             this.type = context.type;
             this.operatePos = context.operatePos.clone();
             this.operateNodes = context.operateNodes.clone();
@@ -60,12 +60,12 @@ public class OperateContext {
             return this;
         }
 
-        public OperateContext build(){
-            return new OperateContext(problem, type,mainRoute,sideRoute,operateNodes,operatePos);
+        public OperationContext build(){
+            return new OperationContext(problem, type,mainRoute,sideRoute,operateNodes,operatePos);
         }
     }
 
-    private OperateContext(Problem problem, operatorType type, Route mainRoute, Route sideRoute, Node[] operateNodes, Integer[] operatePos) {
+    private OperationContext(Problem problem, operatorType type, Route mainRoute, Route sideRoute, Node[] operateNodes, Integer[] operatePos) {
         this.type = type;
         this.mainRoute = mainRoute;
         this.sideRoute = sideRoute;
@@ -74,22 +74,22 @@ public class OperateContext {
         this.problem = problem;
     }
 
-    public OperateContext setMainRoute(Route mainRoute) {
+    public OperationContext setMainRoute(Route mainRoute) {
         this.mainRoute = mainRoute;
         return this;
     }
 
-    public OperateContext setOperateNodes(int index, Node node) {
+    public OperationContext setOperateNodes(int index, Node node) {
         this.operateNodes[index] = node;
         return this;
     }
 
-    public OperateContext setOperatePos(int index, int pos) {
+    public OperationContext setOperatePos(int index, int pos) {
         this.operatePos[index] = pos;
         return this;
     }
 
-    public OperateContext copy(){
+    public OperationContext copy(){
         return new Builder(this).build();
     }
 }

@@ -11,5 +11,5 @@ public abstract class BaseOperator {
     }
 
     public abstract void operate(Solution sol);
-    public abstract void singleOperate(OperateContext context);
+    public abstract void singleOperate(Solution solution, OperationContext context);
 }

@@ -11,7 +11,7 @@ import Constraints.HardConstraint;
 import Constraints.InsertionConstraints.InsertionConstraintManager;
 import Constraints.InsertionConstraints.InsertionSoftCostConstraint;
 import Constraints.SoftConstraint;
-import Operators.OperateContext;
+import Operators.OperationContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,9 +46,9 @@ public class GreedyGenerator extends Generator{
 
     private void executeGreedyAlgo(Solution solution){
         for (Customer customer:solution.unassignedCustomer){
-            OperateContext context = new OperateContext.Builder(problem, OperateContext.operatorType.INSERT).
+            OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.INSERT).
             setOperatePos(new Integer[1]).setOperateNodes(new Node[1]).build();
-            OperateContext bestContext = null;
+            OperationContext bestContext = null;
             double minInsertCost = Double.MAX_VALUE;
             for(Route route:solution.routes){
                 context.setMainRoute(route).setOperateNodes(0,customer);
@@ -89,7 +89,7 @@ public class GreedyGenerator extends Generator{
         }
     }
 
-    private double costOfInsertion(OperateContext context){
+    private double costOfInsertion(OperationContext context){
         return costConstraint.fulfilled(context);
     }
 

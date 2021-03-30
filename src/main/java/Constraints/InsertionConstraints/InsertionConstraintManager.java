@@ -2,10 +2,9 @@ package Constraints.InsertionConstraints;
 
 import Constraints.ConstraintManager;
 import Constraints.HardConstraint;
-import Operators.OperateContext;
+import Operators.OperationContext;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InsertionConstraintManager extends ConstraintManager{
     private static InsertionConstraintManager insertionConstraintManager;
@@ -24,7 +23,7 @@ public class InsertionConstraintManager extends ConstraintManager{
     }
 
     @Override
-    public ConsStatus fulfilled(OperateContext context) {
+    public ConsStatus fulfilled(OperationContext context) {
         for (HardConstraint constraint:constraints) {
             ConsStatus status = constraint.fulfilled(context);
             if (status!=ConsStatus.FULFILLED)return status;

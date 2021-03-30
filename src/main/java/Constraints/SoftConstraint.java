@@ -1,6 +1,6 @@
 package Constraints;
 
-import Operators.OperateContext;
+import Operators.OperationContext;
 
 public interface SoftConstraint extends Constraint{
     /**
@@ -8,5 +8,5 @@ public interface SoftConstraint extends Constraint{
      * @param context
      * @return
      */
-    double fulfilled(OperateContext context);
+    double fulfilled(OperationContext context);
 }

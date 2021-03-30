@@ -3,12 +3,12 @@ package Constraints.InsertionConstraints;
 import Common.Node.Customer;
 import Common.Node.Depot;
 import Constraints.HardWeightConstraint;
-import Operators.OperateContext;
+import Operators.OperationContext;
 
 public class InsertionHardWeightConstraint extends HardWeightConstraint {
 
     @Override
-    public ConsStatus fulfilled(OperateContext context) {
+    public ConsStatus fulfilled(OperationContext context) {
         int weightLimit = ((Depot)context.mainRoute.start).maxVehicleLoad;
         int currentWeight = context.mainRoute.getWeight();
         if (currentWeight+((Customer)context.operateNodes[0]).need > weightLimit)return ConsStatus.NOT_FULFILLED_BREAK;

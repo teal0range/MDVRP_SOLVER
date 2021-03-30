@@ -2,7 +2,7 @@ package Constraints.InsertionConstraints;
 
 import Common.Node.Node;
 import Constraints.SoftCostConstraint;
-import Operators.OperateContext;
+import Operators.OperationContext;
 
 public class InsertionSoftCostConstraint extends SoftCostConstraint {
     /**
@@ -12,7 +12,7 @@ public class InsertionSoftCostConstraint extends SoftCostConstraint {
      * @return change of cosy
      */
     @Override
-    public double fulfilled(OperateContext context) {
+    public double fulfilled(OperationContext context) {
         int pos = context.operatePos[0];
         Node prev = context.mainRoute.getNode(pos-1);
         Node next = context.mainRoute.getNode(pos);
