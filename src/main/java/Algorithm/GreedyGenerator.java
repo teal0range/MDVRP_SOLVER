@@ -8,7 +8,6 @@ import Common.Route;
 import Common.Solution;
 import Constraints.ConstraintManager;
 import Constraints.HardConstraint;
-import Constraints.InsertionConstraints.InsertionConstraintManager;
 import Constraints.InsertionConstraints.InsertionSoftCostConstraint;
 import Constraints.SoftConstraint;
 import Operators.OperationContext;
@@ -21,7 +20,7 @@ import java.util.List;
 public class GreedyGenerator extends Generator{
 
     SoftConstraint costConstraint = new InsertionSoftCostConstraint();
-    ConstraintManager constraintManager = InsertionConstraintManager.getInstance();
+    ConstraintManager constraintManager = ConstraintManager.getInstance("Insertion");
 
     public GreedyGenerator(Problem problem) {
         super(problem);
