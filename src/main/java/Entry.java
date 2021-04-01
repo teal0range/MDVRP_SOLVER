@@ -10,9 +10,9 @@ import java.lang.reflect.InvocationTargetException;
 public  class  Entry {
     public  static  void  main(String[] args) throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Solution solution = new GreedyGenerator(problems[3]).build();
+        Solution solution = new GreedyGenerator(problems[0]).build();
         System.out.println(solution.getDistance());
-        new InnerShift10(problems[3]).doOperateAll(solution);
+        new InnerShift10(problems[0]).doOperateAll(solution);
         System.out.println(solution.getDistance());
     }
 }

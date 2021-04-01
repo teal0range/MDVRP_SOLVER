@@ -50,9 +50,48 @@ public class RouteTest {
         Assert.assertEquals(12,route.getNode(1).id);
     }
 
+
+
     @Test
     public void testRmNode() {
         route.rmNode(1);
         Assert.assertEquals(2,route.getNode(1).id);
+    }
+
+    @Test
+    public void innerShift100() {
+        this.route.innerShift10(0,1);
+        Assert.assertEquals(1,this.route.getNode(0).id);
+        Assert.assertEquals(0,this.route.getNode(1).id);
+        Assert.assertEquals(10,this.route.length());
+    }
+
+    @Test
+    public void innerShift101() {
+        this.route.innerShift10(0,0);
+        Assert.assertEquals(0,this.route.getNode(0).id);
+        Assert.assertEquals(1,this.route.getNode(1).id);
+        Assert.assertEquals(10,this.route.length());
+    }
+
+    @Test
+    public void innerShift102() {
+        this.route.innerShift10(0,9);
+        Assert.assertEquals(0,this.route.getNode(9).id);
+        Assert.assertEquals(1,this.route.getNode(0).id);
+        Assert.assertEquals(10,this.route.length());
+    }
+
+    @Test
+    public void innerShift103() {
+        this.route.innerShift10(9,-1);
+        Assert.assertEquals(0,this.route.getNode(1).id);
+        Assert.assertEquals(9,this.route.getNode(0).id);
+        Assert.assertEquals(10,this.route.length());
+        before();
+        this.route.innerShift10(9,0);
+        Assert.assertEquals(9,this.route.getNode(1).id);
+        Assert.assertEquals(0,this.route.getNode(0).id);
+        Assert.assertEquals(10,this.route.length());
     }
 }

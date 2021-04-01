@@ -8,7 +8,7 @@ import Operators.OperationContext;
 public class InnerShift10SoftCostConstraint extends SoftCostConstraint {
     /**
      * 返回InnerShift10一次操作之后的成本增减
-     * @param context 只涉及到mainRoute 以及 operatePos，其中operatePos[0]是原先点的位置，operatePos[1]是插入位置（原路径）
+     * @param context 只涉及到mainRoute 以及 operatePos，其中operatePos[0]是原先点的位置，operatePos[1]是插入的前一个位置（原路径）
      * @return InnerShift10 成本变化
      */
     @Override
@@ -18,8 +18,8 @@ public class InnerShift10SoftCostConstraint extends SoftCostConstraint {
         Node operateNode = context.mainRoute.getNode(prevPos);
         Node prevPrevNode = context.mainRoute.getNode(prevPos - 1);
         Node nextPrevNode = context.mainRoute.getNode(prevPos + 1);
-        Node prevNextNode = context.mainRoute.getNode(currentPos - 1);
-        Node nextNextNode = context.mainRoute.getNode(currentPos);
+        Node prevNextNode = context.mainRoute.getNode(currentPos);
+        Node nextNextNode = context.mainRoute.getNode(currentPos + 1);
         return context.problem.getDistance(prevPrevNode,nextPrevNode) -
                 context.problem.getDistance(prevPrevNode,operateNode) -
                 context.problem.getDistance(operateNode,nextPrevNode) +

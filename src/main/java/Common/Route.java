@@ -98,8 +98,12 @@ public class Route {
 
     public void innerShift10(int prev,int next){
         Node node = this.route.get(prev);
-        this.addNode(next,node);
-        this.rmNode(node);
+        this.addNode(next+1,node);
+        if(next<prev){
+            this.rmNode(prev+1);
+        }else {
+            this.rmNode(prev);
+        }
     }
 
     public void update(int weightChg,int timeChg){
