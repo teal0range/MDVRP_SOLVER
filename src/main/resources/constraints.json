@@ -1,0 +1,9 @@
+{
+  "hardConstraints": [
+    "Time",
+    "Weight"
+  ],
+  "softConstraints": [
+
+  ]
+}

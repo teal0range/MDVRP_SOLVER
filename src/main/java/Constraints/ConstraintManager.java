@@ -1,5 +1,6 @@
 package Constraints;
 
+import IO.ConstraintsConfigReader;
 import Operators.OperationContext;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ConstraintManager implements HardConstraint{
 
-    public static final String []constraints2Load = new String[]{"Time","Weight"};
+    public static final ArrayList<String> constraints2Load = new ConstraintsConfigReader().readConfig().hardConstraints;
     protected List<HardConstraint> constraints;
     private static final HashMap<String,ConstraintManager> mapper = new HashMap<>();
 
@@ -27,7 +28,8 @@ public class ConstraintManager implements HardConstraint{
         constraints = new ArrayList<>();
         try {
             for(String contraintName:constraints2Load) {
-                Class<?> clazz = Class.forName(String.format("Constraints.%sConstraints.%sHard%sConstraint", className, className, contraintName));
+                Class<?> clazz = Class.forName(String.format("Constraints.%sConstraints.%sHard%sConstraint",
+                        className, className, contraintName));
                 HardConstraint constraint = (HardConstraint) clazz.getConstructor().newInstance();
                 constraints.add(constraint);
             }

@@ -8,7 +8,7 @@ import Common.Problem;
 import java.io.*;
 import java.util.Arrays;
 
-public class CourdeauInstanceReader extends DataReader{
+public class CourdeauInstanceReader implements DataReader{
     private static DataReader Instance;
 
     private CourdeauInstanceReader(){}
