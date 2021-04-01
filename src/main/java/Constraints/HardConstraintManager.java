@@ -7,24 +7,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ConstraintManager implements HardConstraint{
+public class HardConstraintManager implements HardConstraint{
 
     public static final ArrayList<String> constraints2Load = new ConstraintsConfigReader().readConfig().hardConstraints;
     protected List<HardConstraint> constraints;
-    private static final HashMap<String,ConstraintManager> mapper = new HashMap<>();
+    private static final HashMap<String, HardConstraintManager> mapper = new HashMap<>();
 
-    public static ConstraintManager getInstance(Class<?> clazz){
-        return getInstance(clazz.getName());
+    public static HardConstraintManager getInstance(Class<?> clazz){
+        String name = clazz.getName();
+        name = name.substring(name.lastIndexOf('.')+1);
+        return getInstance(name);
     }
 
-    public static ConstraintManager getInstance(String className){
+    public static HardConstraintManager getInstance(String className){
         if (!mapper.containsKey(className)) {
-            mapper.put(className, new ConstraintManager(className));
+            mapper.put(className, new HardConstraintManager(className));
         }
         return mapper.get(className);
     }
 
-    private ConstraintManager(String className){
+    private HardConstraintManager(String className){
         constraints = new ArrayList<>();
         try {
             for(String contraintName:constraints2Load) {

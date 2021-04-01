@@ -96,6 +96,12 @@ public class Route {
         this.route.remove(node);
     }
 
+    public void innerShift10(int prev,int next){
+        Node node = this.route.get(prev);
+        this.route.add(next,node);
+        this.route.remove(node);
+    }
+
     public void update(int weightChg,int timeChg){
         this.weight += weightChg;
         this.timeCost += timeChg;

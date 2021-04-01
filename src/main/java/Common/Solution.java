@@ -37,6 +37,17 @@ public class Solution {
         return autoIncrement;
     }
 
+    public double getDistance(){
+        double distance = 0;
+        for (Route route:routes){
+            for (int i = 0; i < route.length(); i++) {
+                distance += problem.getDistance(route.getNode(i-1),route.getNode(i));
+            }
+            distance += problem.getDistance(route.getNode(route.length()-1),route.getNode(route.length()));
+        }
+        return distance;
+    }
+
     public void addRoute(Route route){
         route.setId(autoIncrement++);
         routes.add(route);

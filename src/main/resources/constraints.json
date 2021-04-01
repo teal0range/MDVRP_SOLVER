@@ -4,6 +4,6 @@
     "Weight"
   ],
   "softConstraints": [
-
+    "Cost"
   ]
 }

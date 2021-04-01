@@ -20,11 +20,11 @@ public class InnerShift10SoftCostConstraint extends SoftCostConstraint {
         Node nextPrevNode = context.mainRoute.getNode(prevPos + 1);
         Node prevNextNode = context.mainRoute.getNode(currentPos - 1);
         Node nextNextNode = context.mainRoute.getNode(currentPos);
-        return context.problem.getDistance(prevPrevNode,prevNextNode) -
-                context.problem.getDistance(prevNextNode,operateNode) -
+        return context.problem.getDistance(prevPrevNode,nextPrevNode) -
+                context.problem.getDistance(prevPrevNode,operateNode) -
                 context.problem.getDistance(operateNode,nextPrevNode) +
                 context.problem.getDistance(operateNode,nextNextNode) +
                 context.problem.getDistance(operateNode,prevNextNode) -
-                context.problem.getDistance(operateNode,nextNextNode);
+                context.problem.getDistance(prevNextNode,nextNextNode);
     }
 }
