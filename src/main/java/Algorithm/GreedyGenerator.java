@@ -86,6 +86,7 @@ public class GreedyGenerator extends Generator{
                 bestContext.mainRoute.addNode(bestContext.operatePos[0],bestContext.operateNodes[0]);
             }
         }
+        solution.unassignedCustomer.clear();
     }
 
     private double costOfInsertion(OperationContext context){
