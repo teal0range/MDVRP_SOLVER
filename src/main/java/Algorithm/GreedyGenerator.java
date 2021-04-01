@@ -37,9 +37,7 @@ public class GreedyGenerator extends Generator{
     private Solution initSolution(){
         List<Route> routes = new ArrayList<>();
         List<Customer> unassigned = new ArrayList<>(Arrays.asList(problem.customers));
-        Solution solution = new Solution(routes, problem, unassigned);
-        executeGreedyAlgo(solution);
-        return solution;
+        return new Solution(routes, problem, unassigned);
     }
 
 
