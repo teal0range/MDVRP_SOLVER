@@ -1,17 +1,19 @@
 package Common;
 
 import Common.Node.Customer;
+import Common.Node.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Solution {
     public List<Route> routes;
-    public List<Customer> unassignedCustomer;
+    public List<Node> unassignedCustomer;
     public Problem problem;
     private int autoIncrement;
 
-    public Solution(List<Route> routes, Problem problem,List<Customer> unassignedCustomer) {
+    public Solution(List<Route> routes, Problem problem,List<Node> unassignedCustomer) {
         this.routes = routes;
         this.unassignedCustomer = unassignedCustomer;
         this.problem = problem;
@@ -27,6 +29,10 @@ public class Solution {
         this.problem = other.problem;
         this.unassignedCustomer = new ArrayList<>(other.unassignedCustomer);
         this.autoIncrement = other.getAutoIncrement();
+    }
+
+    public void shuffle(){
+        Collections.shuffle(routes);
     }
 
     public List<Route> getRoutes() {

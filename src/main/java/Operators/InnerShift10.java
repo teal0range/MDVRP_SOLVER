@@ -14,12 +14,12 @@ public class InnerShift10 extends BaseOperator{
 
     @Override
     public SoftConstraintManager getSoftConstraintManager() {
-        return SoftConstraintManager.getInstance(InnerShift10.class);
+        return SoftConstraintManager.getInstance(this.getClass());
     }
 
     @Override
     public HardConstraintManager getHardConstraintManager() {
-        return HardConstraintManager.getInstance(InnerShift10.class);
+        return HardConstraintManager.getInstance(this.getClass());
     }
 
     @Override
@@ -50,6 +50,28 @@ public class InnerShift10 extends BaseOperator{
 
     @Override
     public void doOperateBest(Solution solution) {
-
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.InnerShift10).
+                setOperatePos(new Integer[2]).build();
+        OperationContext bestContext = null;
+        double bestCostChg = Double.MAX_VALUE;
+        for (Route route:solution.getRoutes()) {
+            context.setMainRoute(route);
+            for (int i = 0; i < route.length(); i++) {
+                context.setOperatePos(0,i);
+                for (int j = 0; j < route.length(); j++) {
+                    if (j==i-1||j==i)continue;
+                    context.setOperatePos(1,j);
+                    HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                    double costChg = softConstraintManager.fulfilled(context);
+                    if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0 && costChg < bestCostChg){
+                        bestCostChg = costChg;
+                        bestContext = new OperationContext.Builder(context).build();
+                    }
+                }
+            }
+        }
+        if (bestContext!=null){
+            singleOperate(solution, bestContext);
+        }
     }
 }

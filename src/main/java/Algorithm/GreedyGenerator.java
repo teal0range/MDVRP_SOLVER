@@ -34,15 +34,9 @@ public class GreedyGenerator extends Generator{
     }
 
 
-    private Solution initSolution(){
-        List<Route> routes = new ArrayList<>();
-        List<Customer> unassigned = new ArrayList<>(Arrays.asList(problem.customers));
-        return new Solution(routes, problem, unassigned);
-    }
-
-
     private void executeGreedyAlgo(Solution solution){
-        for (Customer customer:solution.unassignedCustomer){
+        for (Node node:solution.unassignedCustomer){
+            Customer customer = (Customer) node;
             OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.INSERT).
             setOperatePos(new Integer[1]).setOperateNodes(new Node[1]).build();
             OperationContext bestContext = null;
@@ -85,6 +79,22 @@ public class GreedyGenerator extends Generator{
             }
         }
         solution.unassignedCustomer.clear();
+    }
+
+
+    protected Solution ruin(Solution solution){
+        solution.shuffle();
+        if (solution.routes.size()==0){
+            logger.error("there's no routes in this solution");
+            return solution;
+        }
+        solution.unassignedCustomer.addAll(solution.routes.get(solution.routes.size()-1).getRoute());
+        solution.routes.remove(solution.routes.size()-1);
+        return solution;
+    }
+
+    protected Solution recreate(Solution solution){
+        return null;
     }
 
     private double costOfInsertion(OperationContext context){

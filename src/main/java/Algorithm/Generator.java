@@ -2,12 +2,15 @@ package Algorithm;
 
 import Common.Node.Customer;
 import Common.Node.Depot;
+import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class Generator {
 
@@ -22,6 +25,12 @@ public abstract class Generator {
         this.customers = problem.customers;
         this.problem = problem;
         routes = new ArrayList<>();
+    }
+
+    protected Solution initSolution(){
+        List<Route> routes = new ArrayList<>();
+        List<Node> unassigned = new ArrayList<>(Arrays.asList(problem.customers));
+        return new Solution(routes, problem, unassigned);
     }
 
     public abstract Solution build();
