@@ -36,6 +36,7 @@ public class InnerShift10 extends BaseOperator{
             for (int i = 0; i < route.length(); i++) {
                 context.setOperatePos(0,i);
                 for (int j = 0; j < route.length(); j++) {
+                    if (j==i-1||j==i)continue;
                     context.setOperatePos(1,j);
                     HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
                     double costChg = softConstraintManager.fulfilled(context);

@@ -5,6 +5,7 @@ import Common.Node.Customer;
 import Common.Node.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Route {
@@ -109,6 +110,13 @@ public class Route {
     public void update(int weightChg,int timeChg){
         this.weight += weightChg;
         this.timeCost += timeChg;
+    }
+
+    /**
+     * only for test use
+     */
+    public void shuffle(){
+        Collections.shuffle(this.route);
     }
 
     @Override
