@@ -94,6 +94,7 @@ public class GreedyGenerator extends Generator{
     }
 
     protected Solution recreate(Solution solution){
+//        TODO recreate algo
         return null;
     }
 

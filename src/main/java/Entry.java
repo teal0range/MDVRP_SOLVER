@@ -14,5 +14,7 @@ public  class  Entry {
         System.out.println(solution.getDistance());
         new InnerShift10(problems[0]).doOperateAll(solution);
         System.out.println(solution.getDistance());
+        new InnerShift10(problems[0]).doOperateBest(solution);
+        System.out.println(solution.getDistance());
     }
 }

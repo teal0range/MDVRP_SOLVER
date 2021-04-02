@@ -5,7 +5,7 @@ import Common.Solution;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 
-public abstract class BaseOperator implements OperateAll, OperateBest{
+public abstract class BaseOperator implements Operate {
     Problem problem;
     HardConstraintManager hardConstraintManager;
     SoftConstraintManager softConstraintManager;

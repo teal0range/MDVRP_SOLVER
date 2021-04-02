@@ -74,4 +74,9 @@ public class InnerShift10 extends BaseOperator{
             singleOperate(solution, bestContext);
         }
     }
+
+    @Override
+    public void doOperateRandom(Solution solution, double threshold) {
+
+    }
 }
