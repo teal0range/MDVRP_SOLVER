@@ -6,7 +6,7 @@ import Common.Route;
 
 public class OperationContext {
     public enum operatorType{
-        INSERT,SUBSTITUTE,InnerShift10
+        INSERT,SUBSTITUTE,InnerShift10,OuterShift10
     }
     public operatorType type;
     public Problem problem;
@@ -76,6 +76,11 @@ public class OperationContext {
 
     public OperationContext setMainRoute(Route mainRoute) {
         this.mainRoute = mainRoute;
+        return this;
+    }
+
+    public OperationContext setSideRoute(Route sideRouteRoute) {
+        this.sideRoute = sideRouteRoute;
         return this;
     }
 

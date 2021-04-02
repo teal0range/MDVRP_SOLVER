@@ -107,6 +107,14 @@ public class Route {
         }
     }
 
+    public void outerShift10(Route other,int prev,int next){
+        Node node = this.route.get(prev);
+        this.rmNode(prev);
+        other.addNode(next+1,node);
+    }
+    
+
+
     public void update(int weightChg,int timeChg){
         this.weight += weightChg;
         this.timeCost += timeChg;
