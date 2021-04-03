@@ -44,7 +44,7 @@ public class OuterShift10 extends BaseOperator{
                         double costChg = softConstraintManager.fulfilled(context);
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-                            if (i >= mainRoute.length())break;
+                            if (i >= mainRoute.length()) break; // shift 结点后，路径可能变短
                         }
                     }
                 }

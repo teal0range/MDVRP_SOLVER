@@ -6,7 +6,6 @@ import Common.Node.Node;
 import RandomController.RandomController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Route {
@@ -113,7 +112,10 @@ public class Route {
         this.rmNode(prev);
         other.addNode(next+1,node);
     }
-    
+
+    public void innerSwap10(int prev, int next) {
+
+    }
 
 
     public void update(int weightChg,int timeChg){
