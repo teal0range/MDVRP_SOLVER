@@ -2,6 +2,7 @@ package Common;
 
 import Common.Node.Customer;
 import Common.Node.Node;
+import RandomController.RandomController;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +33,7 @@ public class Solution {
     }
 
     public void shuffle(){
-        Collections.shuffle(routes);
+        RandomController.shuffle(routes);
     }
 
     public List<Route> getRoutes() {
