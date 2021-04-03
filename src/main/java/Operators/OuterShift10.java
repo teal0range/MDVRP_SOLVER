@@ -5,7 +5,6 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
-import Constraints.SoftConstraint;
 import Constraints.SoftConstraintManager;
 
 public class OuterShift10 extends BaseOperator{
@@ -25,7 +24,7 @@ public class OuterShift10 extends BaseOperator{
 
     @Override
     public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.outerShift10(context.sideRoute,context.operatePos[0],context.operatePos[1]);
+        context.mainRoute.outerShift10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
     }
 
     @Override
@@ -39,7 +38,7 @@ public class OuterShift10 extends BaseOperator{
                 context.setSideRoute(sideRoute);
                 for (int i = 0; i < mainRoute.length(); i++) {
                     context.setOperatePos(0, i);
-                    for (int j = -1; j < sideRoute.length(); j++) {
+                    for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
                         context.setOperatePos(1, j);
                         HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
                         double costChg = softConstraintManager.fulfilled(context);

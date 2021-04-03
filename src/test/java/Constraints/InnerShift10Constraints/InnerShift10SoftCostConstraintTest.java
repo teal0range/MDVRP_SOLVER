@@ -13,9 +13,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Collections;
-
-import static org.junit.Assert.*;
 
 public class InnerShift10SoftCostConstraintTest {
 
@@ -41,10 +38,11 @@ public class InnerShift10SoftCostConstraintTest {
                     double costBefore = solution.getDistance();
                     if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
                         context.mainRoute.innerShift10(context.operatePos[0],context.operatePos[1]);
-                        Assert.assertEquals(costBefore+costChg,solution.getDistance(),0.001);
+                        Assert.assertEquals(costBefore+costChg, solution.getDistance(),0.001);
                     }
                 }
             }
         }
     }
+
 }
