@@ -3,7 +3,7 @@ package Common;
 
 import Common.Node.Customer;
 import Common.Node.Node;
-import RandomController.RandomController;
+import Utils.RandomController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,9 +121,7 @@ public class Route {
     }
 
     public void outerSwap10(Route other, int prev, int next) {
-        /**
-         * prev->this.route, next->other
-         */
+        // prev->this.route, next->other
         Node tmp = this.route.get(prev);
         this.subNode(prev, other.getNode(next));
         other.subNode(next, tmp);

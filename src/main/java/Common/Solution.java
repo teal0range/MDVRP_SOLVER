@@ -1,11 +1,9 @@
 package Common;
 
-import Common.Node.Customer;
 import Common.Node.Node;
-import RandomController.RandomController;
+import Utils.RandomController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Solution {
