@@ -17,16 +17,19 @@ import java.io.IOException;
 public class OuterShift10SoftCostConstraintTest {
     @Test
     public void fulfilled() throws IOException {
-        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("OutShift10");
-        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("OutShift10");
+        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("OuterShift10");
+        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("OuterShift10");
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problems[0]).build();
         OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.OuterShift10).
                 setOperatePos(new Integer[2]).build();
         for(Route mainRoute:solution.getRoutes()) {
+            mainRoute.shuffle();
             context.setMainRoute(mainRoute);
             for (Route sideRoute : solution.getRoutes()) {
+                sideRoute.shuffle();
+                context.setSideRoute(sideRoute);
                 if (sideRoute == mainRoute) continue;
                 for (int i = 0; i < mainRoute.length(); ++i) {
                     context.setOperatePos(0, i);
@@ -38,6 +41,7 @@ public class OuterShift10SoftCostConstraintTest {
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             context.mainRoute.outerShift10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
                             Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
+                            if (i>=mainRoute.length()) break;
                         }
                     }
                 }
