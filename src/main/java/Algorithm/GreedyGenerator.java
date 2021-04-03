@@ -6,16 +6,14 @@ import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
-import Constraints.HardConstraintManager;
 import Constraints.HardConstraint;
+import Constraints.HardConstraintManager;
 import Constraints.InsertionConstraints.InsertionSoftCostConstraint;
 import Constraints.SoftConstraint;
 import Operators.OperationContext;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class GreedyGenerator extends Generator{
 

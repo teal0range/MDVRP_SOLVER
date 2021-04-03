@@ -3,6 +3,7 @@ package Common;
 
 import Common.Node.Customer;
 import Common.Node.Node;
+import RandomController.RandomController;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -124,7 +125,7 @@ public class Route {
      * only for test use
      */
     public void shuffle(){
-        Collections.shuffle(this.route);
+        RandomController.shuffle(this.route);
     }
 
     @Override
