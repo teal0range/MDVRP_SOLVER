@@ -54,7 +54,32 @@ public class OuterShift10 extends BaseOperator{
 
     @Override
     public void doOperateBest(Solution solution) {
-
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.OuterShift10).
+                setOperatePos(new Integer[2]).build();
+        OperationContext bestContext = null;
+        double bestCostChg = Double.MAX_VALUE;
+        for (Route mainRoute:solution.getRoutes()) {
+            context.setMainRoute(mainRoute);
+            for (Route sideRoute:solution.getRoutes()) {
+                if (mainRoute==sideRoute)continue;
+                context.setSideRoute(sideRoute);
+                for (int i = 0; i < mainRoute.length(); i++) {
+                    context.setOperatePos(0, i);
+                    for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
+                        context.setOperatePos(1, j);
+                        HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                        double costChg = softConstraintManager.fulfilled(context);
+                        if (status == HardConstraint.ConsStatus.FULFILLED && costChg < bestCostChg) {
+                            bestCostChg = costChg;
+                            bestContext = new OperationContext.Builder(context).build();
+                        }
+                    }
+                }
+            }
+        }
+        if (bestContext!=null){
+            singleOperate(solution,bestContext);
+        }
     }
 
     @Override
