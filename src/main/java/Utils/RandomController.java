@@ -1,4 +1,4 @@
-package RandomController;
+package Utils;
 
 import java.util.Collections;
 import java.util.List;

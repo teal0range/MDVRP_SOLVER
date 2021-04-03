@@ -12,18 +12,10 @@ public  class  Entry {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Solution solution = new GreedyGenerator(problems[0]).build();
         System.out.println(solution.getDistance());
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new InnerShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new InnerShift10(problems[0]).doOperateAll(solution);
-        new OuterShift10(problems[0]).doOperateAll(solution);
-        new InnerShift10(problems[0]).doOperateAll(solution);
+        for (int i = 0; i < 1000; i++) {
+            new OuterShift10(problems[0]).doOperateAll(solution);
+            new InnerShift10(problems[0]).doOperateAll(solution);
+        }
         System.out.println(solution.getDistance());
     }
 }
