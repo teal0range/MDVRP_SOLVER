@@ -100,7 +100,7 @@ public class Route {
     public void innerShift10(int prev,int next){
         Node node = this.route.get(prev);
         this.addNode(next+1,node);
-        if(next<prev){
+        if(next<prev){ // 新节点插入到编号prev前
             this.rmNode(prev+1);
         }else {
             this.rmNode(prev);
@@ -114,7 +114,19 @@ public class Route {
     }
 
     public void innerSwap10(int prev, int next) {
+        // 路径内结点交换，当前route cost总和不变，无需修改
+        Node tmp = this.route.get(prev);
+        this.subNode(prev, this.route.get(next));
+        this.subNode(next, tmp);
+    }
 
+    public void outerSwap10(Route other, int prev, int next) {
+        /**
+         * prev->this.route, next->other
+         */
+        Node tmp = this.route.get(prev);
+        this.subNode(prev, other.getNode(next));
+        other.subNode(next, tmp);
     }
 
 
