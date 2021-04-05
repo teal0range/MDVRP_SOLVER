@@ -4,11 +4,13 @@ import Common.Problem;
 import Common.Solution;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
+import org.apache.log4j.Logger;
 
-public abstract class BaseOperator implements Operate {
+public abstract class BaseOperator implements Operator {
     Problem problem;
     HardConstraintManager hardConstraintManager;
     SoftConstraintManager softConstraintManager;
+    Logger logger = Logger.getLogger(this.getClass());
 
     public BaseOperator(Problem problem) {
         this.problem = problem;

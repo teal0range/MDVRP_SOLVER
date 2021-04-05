@@ -11,7 +11,7 @@ public class ConstraintsConfigReader implements ConfigReader<ConstraintsConfig>{
     @Override
     public ConstraintsConfig readConfig(){
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/constraints.json"));
+            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/config.json"));
             Gson gson = new Gson();
             JsonObject object = (JsonObject) new JsonParser().parse(br);
             return gson.fromJson(object, ConstraintsConfig.class);

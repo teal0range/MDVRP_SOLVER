@@ -5,6 +5,7 @@ import Utils.RandomController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Solution {
     public List<Route> routes;
@@ -51,6 +52,14 @@ public class Solution {
             distance += problem.getDistance(route.getNode(route.length()-1),route.getNode(route.length()));
         }
         return distance;
+    }
+
+    public void destroy(int index){
+        if (this.routes.size()==0){
+            return;
+        }
+        this.unassignedCustomer.addAll(this.routes.get(this.routes.size()-1).getRoute());
+        this.routes.remove(index);
     }
 
     public void addRoute(Route route){

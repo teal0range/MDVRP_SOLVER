@@ -1,9 +1,0 @@
-{
-  "hardConstraints": [
-    "Time",
-    "Weight"
-  ],
-  "softConstraints": [
-    "Cost"
-  ]
-}

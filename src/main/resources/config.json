@@ -1,0 +1,15 @@
+{
+  "hardConstraints": [
+    "Time",
+    "Weight"
+  ],
+  "softConstraints": [
+    "Cost"
+  ],
+  "operators": [
+    "InnerShift10",
+    "OuterShift10",
+    "OuterSwap10",
+    "InnerSwap10"
+  ]
+}
