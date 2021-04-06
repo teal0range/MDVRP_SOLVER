@@ -20,8 +20,8 @@ public  class  Entry {
         List<Operator> opt = new ArrayList<>();
         opt.add(new OuterShift10(problems[0]));
         opt.add(new InnerShift10(problems[0]));
-        opt.add(new OuterSwap10(problems[0]));
-        opt.add(new InnerSwap10(problems[0]));
+        opt.add(new OuterSwap11(problems[0]));
+        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problems[0]));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);

@@ -1,4 +1,4 @@
-package Constraints.InnerSwap10Constraints;
+package Constraints.InnerSwap11Constraints;
 
 import Algorithm.GreedyGenerator;
 import Common.Problem;
@@ -14,13 +14,11 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 public class InnerSwap10SoftCostConstraintTest {
     @Test
     public void fulfilled() throws IOException {
-        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("InnerSwap10");
-        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("InnerSwap10");
+        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("InnerSwap11");
+        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("InnerSwap11");
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problems[0]).build();

@@ -7,8 +7,8 @@ import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 
-public class OuterSwap10  extends BaseOperator{
-    public OuterSwap10(Problem problem) {
+public class OuterSwap11 extends BaseOperator{
+    public OuterSwap11(Problem problem) {
     super(problem);
 }
 
