@@ -25,7 +25,10 @@ public class Solution {
     }
 
     public Solution(Solution other){
-        this.routes = new ArrayList<>(other.routes);
+        this.routes = new ArrayList<>();
+        for (Route route:other.getRoutes()){
+            this.routes.add(new Route(route));
+        }
         this.problem = other.problem;
         this.unassignedCustomer = new ArrayList<>(other.unassignedCustomer);
         this.autoIncrement = other.getAutoIncrement();

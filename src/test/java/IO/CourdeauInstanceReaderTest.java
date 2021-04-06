@@ -7,6 +7,6 @@ import java.util.Arrays;
 
 public class CourdeauInstanceReaderTest extends TestCase {
     public void testRead() throws IOException {
-        System.out.println(Arrays.toString(CourdeauInstanceReader.getReader().readData()));
+        CourdeauInstanceReader.getReader().readData();
     }
 }

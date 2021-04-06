@@ -1,6 +1,7 @@
 package Algorithm;
 
 import Common.Problem;
+import Common.Route;
 import Common.Solution;
 import IO.CourdeauInstanceReader;
 import junit.framework.TestCase;
@@ -12,6 +13,10 @@ public class InitialSolutionGeneratorTest extends TestCase {
         Problem[] data = CourdeauInstanceReader.getReader().readData();
         Problem p01 = data[0];
         Solution solution = new InitializeSolution(p01).getSolution();
-        assertEquals(solution.getRoutes().size(),p01.customerNumber);
+        int number = 0;
+        for(Route route:solution.getRoutes()){
+            number += route.length();
+        }
+        assertEquals(number,p01.customerNumber);
     }
 }
