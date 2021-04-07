@@ -4,22 +4,10 @@ import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
-import Constraints.HardConstraintManager;
-import Constraints.SoftConstraintManager;
 
-public class Shift10 extends BaseOperator{
+public class Shift10 extends BaseOperator {
     public Shift10(Problem problem) {
         super(problem);
-    }
-
-    @Override
-    public SoftConstraintManager getSoftConstraintManager() {
-        return SoftConstraintManager.getInstance(this.getClass());
-    }
-
-    @Override
-    public HardConstraintManager getHardConstraintManager() {
-        return HardConstraintManager.getInstance(this.getClass());
     }
 
     @Override

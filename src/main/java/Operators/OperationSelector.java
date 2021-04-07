@@ -2,7 +2,7 @@ package Operators;
 
 import Common.Solution;
 
-public interface Operator {
+public interface OperationSelector {
     void doOperateAll(Solution solution);
     void doOperateBest(Solution solution);
     void doOperateRandom(Solution solution, double threshold);

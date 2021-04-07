@@ -8,13 +8,12 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
-import Constraints.HardWeightConstraint;
 import Constraints.SoftConstraintManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Insertion extends BaseOperator{
+public class Insertion extends BaseOperator {
     /**
      * Ruin & Recreate
      * @param problem prob description
