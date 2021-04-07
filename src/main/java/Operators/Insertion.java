@@ -47,7 +47,6 @@ public class Insertion extends BaseOperator {
 
     @Override
     public void singleOperate(Solution solution, OperationContext context) {
-        ruin.doOuterRuin(solution);
         for (Node node:solution.unassignedCustomer){
             Customer customer = (Customer) node;
             context = new OperationContext.Builder(problem, OperationContext.operatorType.INSERT).
@@ -92,6 +91,7 @@ public class Insertion extends BaseOperator {
 
     @Override
     public void doOperateAll(Solution solution) {
+        ruin.doOuterRuin(solution);
         singleOperate(solution,null);
     }
 

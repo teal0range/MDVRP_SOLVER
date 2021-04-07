@@ -20,7 +20,11 @@ import static org.junit.Assert.*;
 public class SoftCostConstraintImplTest {
 
     public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.shift20(context.sideRoute,context.operatePos[0],context.operatePos[1]);
+        if (context.mainRoute == context.sideRoute||context.sideRoute==null){
+            context.mainRoute.innerShift20(context.operatePos[0],context.operatePos[1]);
+        }else {
+            context.mainRoute.shift20(context.sideRoute,context.operatePos[0],context.operatePos[1]);
+        }
     }
 
     @Test
@@ -38,35 +42,18 @@ public class SoftCostConstraintImplTest {
             for (Route sideRoute:solution.getRoutes()) {
                 context.setSideRoute(sideRoute);
                 sideRoute.shuffle();
-                if (mainRoute==sideRoute){
-                    for (int i = 0; i < mainRoute.length() - 1; i++) {
-                        context.setOperatePos(0,i);
-                        for (int j = -1; j < mainRoute.length(); j++) {
-                            if (Math.abs(j-i)<=1)continue;
-                            context.setOperatePos(1,j);
-                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
-                            double costChg = softConstraintManager.fulfilled(context);
-                            double costBefore = solution.getDistance();
-                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
-                                context.mainRoute.innerShift20(context.operatePos[0],context.operatePos[1]);
-                                Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
-                            }
-                        }
-                    }
-
-                }else {
-                    for (int i = 0; i < mainRoute.length() - 1; i++) {
-                        context.setOperatePos(0, i);
-                        for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
-                            context.setOperatePos(1, j);
-                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
-                            double costChg = softConstraintManager.fulfilled(context);
-                            double costBefore = solution.getDistance();
-                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
-                                singleOperate(solution, context);
-                                Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
-                                if (i >= mainRoute.length() - 1) break; // shift 结点后，路径可能变短
-                            }
+                for (int i = 0; i < mainRoute.length() - 1; i++) {
+                    context.setOperatePos(0, i);
+                    for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
+                        if (mainRoute==sideRoute&&Math.abs(j-i)<=1)continue;
+                        context.setOperatePos(1, j);
+                        HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                        double costChg = softConstraintManager.fulfilled(context);
+                        double costBefore = solution.getDistance();
+                        if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
+                            singleOperate(solution, context);
+                            Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
+                            if (i >= mainRoute.length() - 1) break; // shift 结点后，路径可能变短
                         }
                     }
                 }

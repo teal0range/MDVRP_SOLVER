@@ -18,6 +18,15 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SoftCostConstraintImplTest {
+
+    public void singleOperate(Solution solution, OperationContext context) {
+        if (context.mainRoute == context.sideRoute||context.sideRoute==null) {
+            context.mainRoute.innerShift10(context.operatePos[0],context.operatePos[1]);
+        }else {
+            context.mainRoute.shift10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+        }
+    }
+
     @Test
     public void fulfilled() throws IOException {
 //        RandomController.setSeed(1);
@@ -34,37 +43,18 @@ public class SoftCostConstraintImplTest {
             for (Route sideRoute : solution.getRoutes()) {
                 sideRoute.shuffle();
                 context.setSideRoute(sideRoute);
-                if (sideRoute == mainRoute) {
-                    for (int i = 0; i < mainRoute.length(); i++) {
-                        context.setOperatePos(0,i);
-                        for (int j = -1; j < mainRoute.length()-1; j++) {
-                            if (j==i-1||j==i)continue;
-                            context.setOperatePos(1,j);
-//                            if (i==0&&j==1&&mainRoute.getId()==2&&sideRoute.getId()==2){
-//                                System.out.println();
-//                            }
-                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
-                            double costChg = softConstraintManager.fulfilled(context);
-                            double costBefore = solution.getDistance();
-                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
-                                context.mainRoute.innerShift10(context.operatePos[0],context.operatePos[1]);
-                                Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
-                            }
-                        }
-                    }
-                }else {
-                    for (int i = 0; i < mainRoute.length(); ++i) {
-                        context.setOperatePos(0, i);
-                        for (int j = -1; j < sideRoute.length()-1; ++j) {
-                            context.setOperatePos(1, j);
-                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
-                            double costChg = softConstraintManager.fulfilled(context);
-                            double costBefore = solution.getDistance();
-                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
-                                context.mainRoute.shift10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
-                                Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
-                                if (i >= mainRoute.length()) break;
-                            }
+                for (int i = 0; i < mainRoute.length(); ++i) {
+                    context.setOperatePos(0, i);
+                    for (int j = -1; j < sideRoute.length()-1; ++j) {
+                        if (mainRoute==sideRoute&&(j==i-1||j==i))continue;
+                        context.setOperatePos(1, j);
+                        HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                        double costChg = softConstraintManager.fulfilled(context);
+                        double costBefore = solution.getDistance();
+                        if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
+                            singleOperate(solution, context);
+                            Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
+                            if (i >= mainRoute.length()) break;
                         }
                     }
                 }
