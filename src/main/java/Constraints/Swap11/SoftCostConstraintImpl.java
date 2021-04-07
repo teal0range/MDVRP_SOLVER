@@ -1,4 +1,4 @@
-package Constraints.Swap11Constraints;
+package Constraints.Swap11;
 
 import Common.Node.Node;
 import Constraints.SoftCostConstraint;

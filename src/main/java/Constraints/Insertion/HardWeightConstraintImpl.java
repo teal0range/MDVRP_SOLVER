@@ -1,4 +1,4 @@
-package Constraints.InsertionConstraints;
+package Constraints.Insertion;
 
 import Common.Node.Customer;
 import Common.Node.Depot;

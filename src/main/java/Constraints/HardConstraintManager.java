@@ -30,7 +30,7 @@ public class HardConstraintManager implements HardConstraint{
         constraints = new ArrayList<>();
         try {
             for(String constraintName:constraints2Load) {
-                Class<?> clazz = Class.forName(String.format("Constraints.%sConstraints.Hard%sConstraintImpl",
+                Class<?> clazz = Class.forName(String.format("Constraints.%s.Hard%sConstraintImpl",
                         className, constraintName));
                 HardConstraint constraint = (HardConstraint) clazz.getConstructor().newInstance();
                 constraints.add(constraint);

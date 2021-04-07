@@ -1,4 +1,4 @@
-package Constraints.SubstituteConstraints;
+package Constraints.Substitute;
 
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;

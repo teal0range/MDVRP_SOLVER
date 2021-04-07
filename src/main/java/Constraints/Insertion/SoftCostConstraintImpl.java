@@ -1,4 +1,4 @@
-package Constraints.InsertionConstraints;
+package Constraints.Insertion;
 
 import Common.Node.Node;
 import Constraints.SoftCostConstraint;

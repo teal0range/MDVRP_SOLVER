@@ -1,4 +1,4 @@
-package Constraints.SubstituteConstraints;
+package Constraints.Substitute;
 
 import Common.Node.Customer;
 import Common.Node.Depot;
@@ -7,8 +7,6 @@ import Common.Route;
 import org.junit.Before;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class HardTimeConstraintImplTest {
     Route route;

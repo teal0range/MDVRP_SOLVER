@@ -1,4 +1,4 @@
-package Constraints.Shift10Constraints;
+package Constraints.Shift10;
 
 import Common.Node.Customer;
 import Common.Node.Depot;

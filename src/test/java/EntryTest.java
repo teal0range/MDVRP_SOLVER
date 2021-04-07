@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.IOException;
@@ -87,6 +88,7 @@ public class EntryTest {
                 logger.info(solution.getDistance());
             }
         }
+        System.out.println(validChecker(solution));
         System.out.println(bestSol.getDistance());
     }
 

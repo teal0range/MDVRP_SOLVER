@@ -1,4 +1,4 @@
-package Constraints.SubstituteConstraints;
+package Constraints.Substitute;
 
 import Common.Node.Customer;
 import Common.Node.Depot;

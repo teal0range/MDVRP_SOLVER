@@ -1,4 +1,4 @@
-package Constraints.Shift10Constraints;
+package Constraints.Shift10;
 
 import Algorithm.GreedyGenerator;
 import Common.Problem;
@@ -17,8 +17,8 @@ import java.io.IOException;
 public class SoftCostConstraintImplTest {
     @Test
     public void fulfilled() throws IOException {
-        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("OuterShift10");
-        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("OuterShift10");
+        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("Shift10");
+        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("Shift10");
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problems[0]).build();
