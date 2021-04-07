@@ -29,7 +29,7 @@ public class Swap11 extends BaseOperator {
 
     @Override
     public void doOperateAll(Solution solution) {
-        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.OuterSwap10).
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.Swap11).
                 setOperatePos(new Integer[2]).build();
         for (Route mainRoute:solution.getRoutes()) {
             context.setMainRoute(mainRoute);

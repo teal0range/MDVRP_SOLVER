@@ -22,7 +22,7 @@ public class SoftCostConstraintImplTest {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problems[0]).build();
-        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.OuterSwap10).
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.Swap11).
                 setOperatePos(new Integer[2]).build();
         for(Route mainRoute:solution.getRoutes()) {
             mainRoute.shuffle();
@@ -39,8 +39,10 @@ public class SoftCostConstraintImplTest {
                             context.setOperatePos(1,j);
                             HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
                             double costChg = softConstraintManager.fulfilled(context);
+                            double costBefore = solution.getDistance();
                             if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
                                 context.mainRoute.swap10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+                                Assert.assertEquals(costBefore + costChg, solution.getDistance(), 0.001);
                             }
                         }
                     }
