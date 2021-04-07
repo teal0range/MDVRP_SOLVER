@@ -1,10 +1,10 @@
-package Constraints.OuterSwap11Constraints;
+package Constraints.Swap11Constraints;
 
 import Common.Node.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 
-public class OuterSwap11SoftCostConstraint extends SoftCostConstraint {
+public class SoftCostConstraintImpl extends SoftCostConstraint {
     @Override
     public double fulfilled(OperationContext context) {
         int pos1 = context.operatePos[0];

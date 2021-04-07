@@ -1,4 +1,4 @@
-package Constraints.OuterSwap11Constraints;
+package Constraints.Swap11Constraints;
 
 import Algorithm.GreedyGenerator;
 import Common.Problem;
@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class OuterSwap10SoftCostConstraintTest {
+public class SoftCostConstraintImplTest {
     @Test
     public void fulfilled() throws IOException {
         HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("OuterSwap11");
@@ -30,8 +30,22 @@ public class OuterSwap10SoftCostConstraintTest {
             for (Route sideRoute : solution.getRoutes()) {
                 sideRoute.shuffle();
                 context.setSideRoute(sideRoute);
-                if (sideRoute == mainRoute) continue;
-                for (int i = 0; i < mainRoute.length(); ++i) {
+                if (mainRoute==sideRoute){
+                    for (int i = 0; i < mainRoute.length(); i++) {
+                        context.setOperatePos(0,i);
+                        for (int j = 0; j < mainRoute.length(); j++) {
+                            if (j==i-1 || j==i || j==i+1)
+                                continue;
+                            context.setOperatePos(1,j);
+                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                            double costChg = softConstraintManager.fulfilled(context);
+                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
+                                context.mainRoute.outerSwap10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+                            }
+                        }
+                    }
+                }else
+                    for (int i = 0; i < mainRoute.length(); ++i) {
                     context.setOperatePos(0, i);
                     for (int j = 0; j < sideRoute.length(); ++j) {
                         context.setOperatePos(1, j);

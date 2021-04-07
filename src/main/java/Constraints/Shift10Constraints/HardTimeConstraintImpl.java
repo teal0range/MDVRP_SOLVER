@@ -1,11 +1,11 @@
-package Constraints.OuterShift10Constraints;
+package Constraints.Shift10Constraints;
 
 import Common.Node.Customer;
 import Common.Node.Depot;
 import Constraints.HardTimeConstraint;
 import Operators.OperationContext;
 
-public class OuterShift10HardTimeConstraint extends HardTimeConstraint {
+public class HardTimeConstraintImpl extends HardTimeConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         Customer prev = (Customer) context.mainRoute.getNode(context.operatePos[0]);

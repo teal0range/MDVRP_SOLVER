@@ -29,8 +29,8 @@ public class SoftConstraintManager extends SoftCostConstraint{
         constraints = new ArrayList<>();
         try {
             for(String contraintName:constraints2Load) {
-                Class<?> clazz = Class.forName(String.format("Constraints.%sConstraints.%sSoft%sConstraint",
-                        className, className, contraintName));
+                Class<?> clazz = Class.forName(String.format("Constraints.%sConstraints.Soft%sConstraintImpl",
+                        className,  contraintName));
                 SoftConstraint constraint = (SoftConstraint) clazz.getConstructor().newInstance();
                 constraints.add(constraint);
             }

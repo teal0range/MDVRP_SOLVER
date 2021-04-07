@@ -1,11 +1,11 @@
-package Constraints.OuterSwap11Constraints;
+package Constraints.Swap11Constraints;
 
 import Common.Node.Customer;
 import Common.Node.Depot;
 import Constraints.HardWeightConstraint;
 import Operators.OperationContext;
 
-public class OuterSwap11HardWeightConstraint extends HardWeightConstraint {
+public class HardWeightConstraintImpl extends HardWeightConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         Customer node1 = (Customer) context.mainRoute.getNode(context.operatePos[0]);

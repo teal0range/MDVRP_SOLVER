@@ -5,7 +5,7 @@ import Common.Node.Depot;
 import Constraints.HardWeightConstraint;
 import Operators.OperationContext;
 
-public class SubstituteHardWeightConstraint extends HardWeightConstraint {
+public class HardWeightConstraintImpl extends HardWeightConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         int weightLimit = ((Depot)context.mainRoute.start).maxVehicleLoad;

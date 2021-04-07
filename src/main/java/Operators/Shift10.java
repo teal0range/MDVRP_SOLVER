@@ -7,8 +7,8 @@ import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 
-public class OuterShift10 extends BaseOperator{
-    public OuterShift10(Problem problem) {
+public class Shift10 extends BaseOperator{
+    public Shift10(Problem problem) {
         super(problem);
     }
 
@@ -34,17 +34,32 @@ public class OuterShift10 extends BaseOperator{
         for (Route mainRoute:solution.getRoutes()) {
             context.setMainRoute(mainRoute);
             for (Route sideRoute:solution.getRoutes()) {
-                if (mainRoute==sideRoute)continue;
                 context.setSideRoute(sideRoute);
-                for (int i = 0; i < mainRoute.length(); i++) {
-                    context.setOperatePos(0, i);
-                    for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
-                        context.setOperatePos(1, j);
-                        HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
-                        double costChg = softConstraintManager.fulfilled(context);
-                        if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
-                            singleOperate(solution, context);
-                            if (i >= mainRoute.length()) break; // shift 结点后，路径可能变短
+                if (mainRoute==sideRoute){
+                    for (int i = 0; i < mainRoute.length(); i++) {
+                        context.setOperatePos(0,i);
+                        for (int j = -1; j < mainRoute.length()-1; j++) {
+                            if (j==i-1||j==i)continue;
+                            context.setOperatePos(1,j);
+                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                            double costChg = softConstraintManager.fulfilled(context);
+                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0){
+                                singleOperate(solution, context);
+                            }
+                        }
+                    }
+
+                }else {
+                    for (int i = 0; i < mainRoute.length(); i++) {
+                        context.setOperatePos(0, i);
+                        for (int j = -1; j < sideRoute.length() - 1; j++) { //插入在指定节点之后
+                            context.setOperatePos(1, j);
+                            HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                            double costChg = softConstraintManager.fulfilled(context);
+                            if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
+                                singleOperate(solution, context);
+                                if (i >= mainRoute.length()) break; // shift 结点后，路径可能变短
+                            }
                         }
                     }
                 }

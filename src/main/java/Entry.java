@@ -18,10 +18,9 @@ public  class  Entry {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Solution solution = new GreedyGenerator(problems[0]).build();
         List<Operator> opt = new ArrayList<>();
-        opt.add(new OuterShift10(problems[0]));
-        opt.add(new InnerShift10(problems[0]));
-        opt.add(new OuterSwap11(problems[0]));
-        opt.add(new InnerSwap11(problems[0]));
+        opt.add(new Shift10(problems[0]));
+        opt.add(new Swap11(problems[0]));
+//        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problems[0]));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);

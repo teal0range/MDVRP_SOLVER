@@ -1,12 +1,11 @@
-package Constraints.OuterShift10Constraints;
+package Constraints.Shift10Constraints;
 
 import Common.Node.Customer;
 import Common.Node.Depot;
-import Common.Node.Node;
 import Constraints.HardWeightConstraint;
 import Operators.OperationContext;
 
-public class OuterShift10HardWeightConstraint extends HardWeightConstraint {
+public class HardWeightConstraintImpl extends HardWeightConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         Customer prev = (Customer) context.mainRoute.getNode(context.operatePos[0]);

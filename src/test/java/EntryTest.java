@@ -9,6 +9,9 @@ import IO.CourdeauInstanceReader;
 import Operators.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,10 +70,9 @@ public class EntryTest {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Solution solution = new GreedyGenerator(problems[0]).build();
         List<Operator> opt = new ArrayList<>();
-        opt.add(new OuterShift10(problems[0]));
-        opt.add(new InnerShift10(problems[0]));
-        opt.add(new OuterSwap11(problems[0]));
-        opt.add(new InnerSwap11(problems[0]));
+        opt.add(new Shift10(problems[0]));
+        opt.add(new Swap11(problems[0]));
+//        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problems[0]));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
@@ -86,5 +88,12 @@ public class EntryTest {
             }
         }
         System.out.println(bestSol.getDistance());
+    }
+
+    @Test
+    public void testQuartz() throws SchedulerException {
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        scheduler.start();
+        scheduler.shutdown();
     }
 }

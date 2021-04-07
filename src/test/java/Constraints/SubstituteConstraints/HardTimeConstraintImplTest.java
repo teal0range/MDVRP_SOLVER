@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-public class SubstituteHardTimeConstraintTest {
+public class HardTimeConstraintImplTest {
     Route route;
 
     @Before

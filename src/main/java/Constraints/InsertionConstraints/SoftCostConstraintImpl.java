@@ -4,7 +4,7 @@ import Common.Node.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 
-public class InsertionSoftCostConstraint extends SoftCostConstraint {
+public class SoftCostConstraintImpl extends SoftCostConstraint {
     /**
      * return change of distance after an insertion
      * @param context param mainRoute, operateNodes and operatePos is used, with operateNode[0] representing

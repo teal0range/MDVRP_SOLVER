@@ -1,10 +1,10 @@
-package Constraints.OuterShift10Constraints;
+package Constraints.Shift10Constraints;
 
 import Common.Node.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 
-public class OuterShift10SoftCostConstraint extends SoftCostConstraint {
+public class SoftCostConstraintImpl extends SoftCostConstraint {
     /**
      * 两条路径之间的shift
      * @param context mainRoute:移除点的路径，sideRoute:插入点的路径 operatePos[0]
