@@ -107,20 +107,13 @@ public class Route {
         }
     }
 
-    public void outerShift10(Route other,int prev,int next){
+    public void shift10(Route other, int prev, int next){
         Node node = this.route.get(prev);
         this.rmNode(prev);
         other.addNode(next+1,node);
     }
 
-    public void innerSwap10(int prev, int next) {
-        // 路径内结点交换，当前route cost总和不变，无需修改
-        Node tmp = this.route.get(prev);
-        this.subNode(prev, this.route.get(next));
-        this.subNode(next, tmp);
-    }
-
-    public void outerSwap10(Route other, int prev, int next) {
+    public void swap10(Route other, int prev, int next) {
         // prev->this.route, next->other
         Node tmp = this.route.get(prev);
         this.subNode(prev, other.getNode(next));

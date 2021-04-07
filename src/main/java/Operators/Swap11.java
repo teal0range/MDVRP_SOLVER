@@ -24,7 +24,7 @@ public class Swap11 extends BaseOperator {
 
     @Override
     public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.outerSwap10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+        context.mainRoute.swap10(context.sideRoute, context.operatePos[0], context.operatePos[1]);
     }
 
     @Override
