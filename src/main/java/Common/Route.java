@@ -90,7 +90,6 @@ public class Route {
         Node node = this.route.get(pos);
         this.route.remove(pos);
         update(-((Customer) node).need, -node.duration);
-
     }
 
     public void rmNode(Node node){
@@ -118,6 +117,42 @@ public class Route {
         Node tmp = this.route.get(prev);
         this.subNode(prev, other.getNode(next));
         other.subNode(next, tmp);
+    }
+
+    public void innerShift20(int prev, int next){
+        Customer node1 = (Customer) this.getNode(prev);
+        Customer node2 = (Customer) this.getNode(prev+1);
+        while (prev < next - 1){
+            route.set(prev,route.get(prev+2));
+            prev++;
+        }
+        while (prev > next + 1){
+            route.set(prev+1,route.get(prev-1));
+            prev--;
+        }
+        route.set(prev,node1);
+        route.set(prev+1,node2);
+    }
+
+    public void shift20(Route other, int prev, int next){
+        Customer node1 = (Customer) this.getNode(prev);
+        Customer node2 = (Customer) this.getNode(prev+1);
+        for (int i = prev; i < this.length() - 2; i++) {
+            this.route.set(i,route.get(i+2));
+        }
+        route.remove(route.size()-1);
+        route.remove(route.size()-1);
+        int weightChg = node1.need + node2.need;
+        int timeChg = node1.duration + node2.duration;
+        update(-weightChg,-timeChg);
+        other.route.add(null);
+        other.route.add(null);
+        for (int i = other.route.size() - 1; i > next + 2; i--) {
+            other.route.set(i,other.route.get(i-2));
+        }
+        other.route.set(next+1,node1);
+        other.route.set(next+2,node2);
+        other.update(weightChg,timeChg);
     }
 
 

@@ -9,10 +9,7 @@ import IO.CourdeauInstanceReader;
 import Operators.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SchedulerFactory;
-import org.quartz.impl.StdSchedulerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -70,18 +67,19 @@ public class EntryTest {
     public void randomOpt() throws IOException {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Solution solution = new GreedyGenerator(problems[0]).build();
-        List<Operator> opt = new ArrayList<>();
+        List<OperationSelector> opt = new ArrayList<>();
         opt.add(new Shift10(problems[0]));
         opt.add(new Swap11(problems[0]));
+        opt.add(new Shift20(problems[0]));
 //        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problems[0]));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {
-            Operator operator = opt.get(new Random().nextInt(opt.size()));
-            operator.doOperateAll(solution);
+            OperationSelector operationSelector = opt.get(new Random().nextInt(opt.size()));
+            operationSelector.doOperateAll(solution);
             if (!validChecker(solution)) {
-                logger.error(String.format("%s opt", operator.getClass().getName()));
+                logger.error(String.format("%s opt", operationSelector.getClass().getName()));
             }
             if (solution.getDistance() < bestSol.getDistance()){
                 bestSol = new Solution(solution);
@@ -93,9 +91,8 @@ public class EntryTest {
     }
 
     @Test
-    public void testQuartz() throws SchedulerException {
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-        scheduler.start();
-        scheduler.shutdown();
+    public void testQuartz() throws SchedulerException, IOException {
+        Problem[] problems = CourdeauInstanceReader.getReader().readData();
+        OperationSelector operationSelector = new Shift10(problems[0]);
     }
 }
