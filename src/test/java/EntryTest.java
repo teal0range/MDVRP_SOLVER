@@ -67,14 +67,16 @@ public class EntryTest {
     @Test
     public void randomOpt() throws IOException {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Solution solution = new GreedyGenerator(problems[0]).build();
+        Problem problem = problems[16];
+        Solution solution = new GreedyGenerator(problem).build();
         List<OperationSelector> opt = new ArrayList<>();
-        opt.add(new Shift10(problems[0]));
-        opt.add(new Swap11(problems[0]));
-        opt.add(new Shift20(problems[0]));
+        opt.add(new Shift10(problem));
+        opt.add(new Swap11(problem));
+        opt.add(new Shift20(problem));
 //        opt.add(new InnerSwap11(problems[0]));
-        opt.add(new Insertion(problems[0]));
-        opt.add(new TwoOpt(problems[0]));
+        opt.add(new Insertion(problem));
+        opt.add(new TwoOpt(problem));
+        opt.add(new Swap22(problem));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {

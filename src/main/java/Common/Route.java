@@ -6,7 +6,6 @@ import Common.Node.Node;
 import Utils.RandomController;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Route {
@@ -113,7 +112,7 @@ public class Route {
         other.addNode(next+1,node);
     }
 
-    public void swap10(Route other, int prev, int next) {
+    public void swap11(Route other, int prev, int next) {
         // prev->this.route, next->other
         Node tmp = this.route.get(prev);
         this.subNode(prev, other.getNode(next));
@@ -167,6 +166,11 @@ public class Route {
             route.set(start+i,route.get(end-i));
             route.set(end-i,node);
         }
+    }
+
+    public void swap22(Route route,int prev,int next){
+        swap11(route,prev,next);
+        swap11(route,prev+1,next+1);
     }
 
 
