@@ -261,7 +261,7 @@ public class Route {
         while (route.size() > mainCap) {
             route.remove(route.size() - 1);
         }
-        for (int ptr = 0; ptr <= next; ptr++) {
+        for (int ptr = 0; ptr < initSideSize - 1 - next; ptr++) {
             route.set(prev + 1 + ptr, other.getNode(next + 1 + ptr));
         }
 //      适配容量

@@ -1,49 +1,35 @@
-package Constraints.TwoOptStar1;
+package Operators;
 
-import Algorithm.GreedyGenerator;
 import Common.Node.Customer;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
-import Constraints.HardConstraintManager;
-import Constraints.SoftConstraintManager;
-import IO.CourdeauInstanceReader;
-import Operators.OperationContext;
-import Utils.RandomController;
-import org.junit.Assert;
-import org.junit.Test;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
-public class SoftCostConstraintImplTest {
-    public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.twoOptStar1(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+public class TwoOptStar2 extends BaseOperator{
+    public TwoOptStar2(Problem problem) {
+        super(problem);
     }
 
-    @Test
-    public void fulfilled() throws IOException {
-//        RandomController.setSeed(1);
-        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("TwoOptStar1");
-        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("TwoOptStar1");
-        Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Problem problem = problems[0];
-        Solution solution = new GreedyGenerator(problems[0]).build();
+    @Override
+    public void singleOperate(Solution solution, OperationContext context) {
+        context.mainRoute.twoOptStar2(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+    }
+
+    @Override
+    public void doOperateAll(Solution solution) {
         OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.TwoOptStar1).
                 setOperatePos(new Integer[2]).setOperateVal(new HashMap<>()).build();
-
         int[] time = new int[]{0, 0};
         int[] weight = new int[]{0, 0};
         context.setOperateVal("Time", time);
         context.setOperateVal("Weight", weight);
         for (Route mainRoute : solution.getRoutes()) {
             context.setMainRoute(mainRoute);
-            mainRoute.shuffle();
             for (Route sideRoute : solution.getRoutes()) {
                 if (mainRoute == sideRoute || mainRoute.start != sideRoute.start) continue;
-                sideRoute.shuffle();
                 context.setSideRoute(sideRoute);
                 for (int i = 0; i < mainRoute.length() - 1; i++) {
                     context.setOperatePos(0, i);
@@ -55,16 +41,8 @@ public class SoftCostConstraintImplTest {
                         context.setOperatePos(1, j);
                         HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
                         double costChg = softConstraintManager.fulfilled(context);
-                        double costBefore = solution.getDistance();
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-//                            if (Math.abs(costBefore+costChg-solution.getDistance()) > 0.001){
-//                                System.out.println(mainRoute);
-//                                System.out.println(sideRoute);
-//                                System.out.println(Arrays.toString(context.operatePos));
-//                            }
-                            Assert.assertEquals(costBefore+costChg,solution.getDistance(),0.001);
-                            Assert.assertEquals(status,hardConstraintManager.fulfilled(context));
                             if (i >= mainRoute.length() - 1 || j >= sideRoute.length() - 1) break;
                             refreshOperateVal(context);
                         }
@@ -89,5 +67,15 @@ public class SoftCostConstraintImplTest {
         int[] weights = (int[]) context.operateVal.get("Weight");
         times[1] = cumTime;
         weights[1] = cumWeight;
+    }
+
+    @Override
+    public void doOperateBest(Solution solution) {
+
+    }
+
+    @Override
+    public void doOperateRandom(Solution solution, double threshold) {
+
     }
 }

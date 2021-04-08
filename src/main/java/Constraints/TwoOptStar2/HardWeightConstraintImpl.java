@@ -1,4 +1,4 @@
-package Constraints.TwoOptStar1;
+package Constraints.TwoOptStar2;
 
 import Common.Node.Depot;
 import Constraints.HardWeightConstraint;
@@ -14,8 +14,8 @@ public class HardWeightConstraintImpl extends HardWeightConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         int[] cumWeight = (int [])context.operateVal.get("Weight");
-        if (cumWeight[0] + cumWeight[1] > ((Depot) context.mainRoute.start).maxVehicleLoad ||
-                context.mainRoute.getWeight()+context.sideRoute.getWeight() - (cumWeight[0] + cumWeight[1]) >
+        if (cumWeight[0] + context.sideRoute.getWeight() - cumWeight[1] > ((Depot) context.mainRoute.start).maxVehicleLoad ||
+                context.mainRoute.getWeight() - cumWeight[0] + context.sideRoute.getWeight() >
                         ((Depot) context.sideRoute.start).maxVehicleLoad )return ConsStatus.NOT_FULFILLED_BREAK;
         return ConsStatus.FULFILLED;
     }

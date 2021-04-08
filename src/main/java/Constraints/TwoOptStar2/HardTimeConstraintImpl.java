@@ -1,4 +1,4 @@
-package Constraints.TwoOptStar1;
+package Constraints.TwoOptStar2;
 
 import Common.Node.Depot;
 import Operators.OperationContext;
@@ -13,8 +13,8 @@ public class HardTimeConstraintImpl extends Constraints.HardTimeConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
         int[] cumTime = (int [])context.operateVal.get("Time");
-        if (cumTime[0] + cumTime[1] > ((Depot) context.mainRoute.start).maxDuration ||
-                context.mainRoute.getTimeCost()+context.sideRoute.getTimeCost() - (cumTime[0] + cumTime[1]) >
+        if (cumTime[0] + context.sideRoute.getTimeCost() - cumTime[1] > ((Depot) context.mainRoute.start).maxDuration ||
+                context.mainRoute.getTimeCost()-cumTime[0] + context.sideRoute.getTimeCost() >
                         ((Depot) context.sideRoute.start).maxDuration )return ConsStatus.NOT_FULFILLED_BREAK;
         return ConsStatus.FULFILLED;
     }

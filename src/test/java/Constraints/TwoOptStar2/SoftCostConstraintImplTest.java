@@ -1,4 +1,4 @@
-package Constraints.TwoOptStar1;
+package Constraints.TwoOptStar2;
 
 import Algorithm.GreedyGenerator;
 import Common.Node.Customer;
@@ -10,30 +10,42 @@ import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 import IO.CourdeauInstanceReader;
 import Operators.OperationContext;
-import Utils.RandomController;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
+import static org.junit.Assert.*;
+
 public class SoftCostConstraintImplTest {
+
     public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.twoOptStar1(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+        context.mainRoute.twoOptStar2(context.sideRoute, context.operatePos[0], context.operatePos[1]);
+    }
+
+    private void refreshOperateVal(OperationContext context) {
+        Route sideRoute = context.sideRoute;
+        int cumWeight = 0, cumTime = 0;
+        for (int i = 0; i <= context.operatePos[1]; i++) {
+            cumWeight += ((Customer) sideRoute.getNode(i)).need;
+            cumTime += sideRoute.getNode(i).duration;
+        }
+        int[] times = (int[]) context.operateVal.get("Time");
+        int[] weights = (int[]) context.operateVal.get("Weight");
+        times[1] = cumTime;
+        weights[1] = cumWeight;
     }
 
     @Test
     public void fulfilled() throws IOException {
-//        RandomController.setSeed(1);
-        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("TwoOptStar1");
-        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("TwoOptStar1");
+        HardConstraintManager hardConstraintManager = HardConstraintManager.getInstance("TwoOptStar2");
+        SoftConstraintManager softConstraintManager = SoftConstraintManager.getInstance("TwoOptStar2");
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problems[0]).build();
-        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.TwoOptStar1).
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.TwoOptStar2).
                 setOperatePos(new Integer[2]).setOperateVal(new HashMap<>()).build();
-
         int[] time = new int[]{0, 0};
         int[] weight = new int[]{0, 0};
         context.setOperateVal("Time", time);
@@ -58,13 +70,7 @@ public class SoftCostConstraintImplTest {
                         double costBefore = solution.getDistance();
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-//                            if (Math.abs(costBefore+costChg-solution.getDistance()) > 0.001){
-//                                System.out.println(mainRoute);
-//                                System.out.println(sideRoute);
-//                                System.out.println(Arrays.toString(context.operatePos));
-//                            }
                             Assert.assertEquals(costBefore+costChg,solution.getDistance(),0.001);
-                            Assert.assertEquals(status,hardConstraintManager.fulfilled(context));
                             if (i >= mainRoute.length() - 1 || j >= sideRoute.length() - 1) break;
                             refreshOperateVal(context);
                         }
@@ -76,18 +82,5 @@ public class SoftCostConstraintImplTest {
                 time[0] = 0;
             }
         }
-    }
-
-    private void refreshOperateVal(OperationContext context) {
-        Route sideRoute = context.sideRoute;
-        int cumWeight = 0, cumTime = 0;
-        for (int i = 0; i <= context.operatePos[1]; i++) {
-            cumWeight += ((Customer) sideRoute.getNode(i)).need;
-            cumTime += sideRoute.getNode(i).duration;
-        }
-        int[] times = (int[]) context.operateVal.get("Time");
-        int[] weights = (int[]) context.operateVal.get("Weight");
-        times[1] = cumTime;
-        weights[1] = cumWeight;
     }
 }

@@ -80,7 +80,8 @@ public class EntryTest {
         opt.add(new TwoOpt(problem));
         opt.add(new Swap22(problem));
         opt.add(new Swap21(problem));
-//        opt.add(new TwoOptStar1(problem));
+        opt.add(new TwoOptStar2(problem));
+        opt.add(new TwoOptStar1(problem));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {
