@@ -8,6 +8,7 @@ import Common.Solution;
 import IO.CourdeauInstanceReader;
 import Operators.*;
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Test;
 import org.quartz.SchedulerException;
 
@@ -73,6 +74,7 @@ public class EntryTest {
         opt.add(new Shift20(problems[0]));
 //        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problems[0]));
+        opt.add(new TwoOpt(problems[0]));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {
@@ -86,7 +88,7 @@ public class EntryTest {
                 logger.info(solution.getDistance());
             }
         }
-        System.out.println(validChecker(solution));
+        Assert.assertTrue(validChecker(solution));
         System.out.println(bestSol.getDistance());
     }
 

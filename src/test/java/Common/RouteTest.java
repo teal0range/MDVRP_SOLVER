@@ -94,4 +94,20 @@ public class RouteTest {
         Assert.assertEquals(0,this.route.getNode(0).id);
         Assert.assertEquals(10,this.route.length());
     }
+
+    @Test
+    public void twoOpt() {
+        route.twoOpt(1,9);
+        for (int i = 1; i < 10 ; i++) {
+            Assert.assertEquals(10-i,route.getNode(i).id);
+        }
+    }
+
+    @Test
+    public void twoOpt2() {
+        route.twoOpt(2,9);
+        for (int i = 2; i < 10 ; i++) {
+            Assert.assertEquals(11-i,route.getNode(i).id);
+        }
+    }
 }

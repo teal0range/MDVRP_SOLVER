@@ -6,6 +6,7 @@ import Common.Node.Node;
 import Utils.RandomController;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Route {
@@ -153,6 +154,19 @@ public class Route {
         other.route.set(next+1,node1);
         other.route.set(next+2,node2);
         other.update(weightChg,timeChg);
+    }
+
+    /**
+     * 反转子路径
+     * @param start 开始
+     * @param end 结束
+     */
+    public void twoOpt(int start,int end){
+        for (int i = 0; i <= (end - start) / 2; i++) {
+            Node node = route.get(start + i);
+            route.set(start+i,route.get(end-i));
+            route.set(end-i,node);
+        }
     }
 
 
