@@ -19,7 +19,7 @@ public class InitializeSolution {
         this.generator = generator;
     }
 
-    private void prepare(){
+    private void prepare() {
         solution = generator.build();
     }
 
@@ -27,7 +27,6 @@ public class InitializeSolution {
         prepare();
         return solution;
     }
-
 
 
 }

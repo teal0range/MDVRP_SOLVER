@@ -1,5 +1,5 @@
 package Constraints;
 
-public abstract class SoftCostConstraint implements SoftConstraint{
+public abstract class SoftCostConstraint implements SoftConstraint {
 
 }

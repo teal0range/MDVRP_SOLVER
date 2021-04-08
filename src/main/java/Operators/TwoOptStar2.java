@@ -8,7 +8,7 @@ import Constraints.HardConstraint;
 
 import java.util.HashMap;
 
-public class TwoOptStar2 extends BaseOperator{
+public class TwoOptStar2 extends BaseOperator {
     public TwoOptStar2(Problem problem) {
         super(problem);
     }

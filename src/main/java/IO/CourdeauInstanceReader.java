@@ -5,16 +5,20 @@ import Common.Node.Depot;
 import Common.Node.Node;
 import Common.Problem;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 
-public class CourdeauInstanceReader implements DataReader{
+public class CourdeauInstanceReader implements DataReader {
     private static DataReader Instance;
 
-    private CourdeauInstanceReader(){}
+    private CourdeauInstanceReader() {
+    }
 
     public static DataReader getReader() {
-        if(Instance == null){
+        if (Instance == null) {
             Instance = new CourdeauInstanceReader();
         }
         return Instance;
@@ -25,12 +29,12 @@ public class CourdeauInstanceReader implements DataReader{
         File file = new File(dataRoot);
         File[] fs = file.listFiles();
         assert fs != null;
-        Problem []problem = new Problem[fs.length];
+        Problem[] problem = new Problem[fs.length];
         for (int i = 0; i < fs.length; i++) {
             File f = fs[i];
             String name = f.getName();
             BufferedReader br = new BufferedReader(new FileReader(f));
-            String []desc = br.readLine().split(" ");
+            String[] desc = br.readLine().split(" ");
             problem[i] = new Problem(
                     Integer.parseInt(desc[0]),
                     Integer.parseInt(desc[1]),
@@ -39,12 +43,12 @@ public class CourdeauInstanceReader implements DataReader{
             );
             int[][] constraints = new int[problem[i].getDepotsNumber()][2];
             for (int j = 0; j < problem[i].getDepotsNumber(); j++) {
-                String []cons = br.readLine().trim().split("[ ]+");
-                constraints[j] = new int[]{Integer.parseInt(cons[0]),Integer.parseInt(cons[1])};
+                String[] cons = br.readLine().trim().split("[ ]+");
+                constraints[j] = new int[]{Integer.parseInt(cons[0]), Integer.parseInt(cons[1])};
             }
-            Node []nodes = new Node[problem[i].getCustomerNumber()+problem[i].getDepotsNumber()];
+            Node[] nodes = new Node[problem[i].getCustomerNumber() + problem[i].getDepotsNumber()];
             for (int j = 0; j < problem[i].getCustomerNumber(); j++) {
-                String []cus = br.readLine().trim().split("[ ]+");
+                String[] cus = br.readLine().trim().split("[ ]+");
                 nodes[j] = new Customer(
                         Integer.parseInt(cus[0]),
                         Double.parseDouble(cus[1]),
@@ -54,8 +58,8 @@ public class CourdeauInstanceReader implements DataReader{
                 );
             }
             for (int j = 0; j < problem[i].getDepotsNumber(); j++) {
-                String []dep = br.readLine().trim().split("[ ]+");
-                nodes[j+problem[i].getCustomerNumber()] = new Depot(
+                String[] dep = br.readLine().trim().split("[ ]+");
+                nodes[j + problem[i].getCustomerNumber()] = new Depot(
                         Integer.parseInt(dep[0]),
                         Double.parseDouble(dep[1]),
                         Double.parseDouble(dep[2]),
@@ -67,8 +71,8 @@ public class CourdeauInstanceReader implements DataReader{
             problem[i].setNodes(nodes);
             problem[i].setName(name);
         }
-        logger.info(String.format("%d DataSets Loaded",fs.length));
-        logger.info(String.format("DataSets List: %s",Arrays.toString(fs)));
+        logger.info(String.format("%d DataSets Loaded", fs.length));
+        logger.info(String.format("DataSets List: %s", Arrays.toString(fs)));
         return problem;
     }
 }

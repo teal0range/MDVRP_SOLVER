@@ -128,40 +128,40 @@ public class Route {
         other.subNode(next, tmp);
     }
 
-    public void innerShift20(int prev, int next){
+    public void innerShift20(int prev, int next) {
         Customer node1 = (Customer) this.getNode(prev);
-        Customer node2 = (Customer) this.getNode(prev+1);
-        while (prev < next - 1){
-            route.set(prev,route.get(prev+2));
+        Customer node2 = (Customer) this.getNode(prev + 1);
+        while (prev < next - 1) {
+            route.set(prev, route.get(prev + 2));
             prev++;
         }
-        while (prev > next + 1){
-            route.set(prev+1,route.get(prev-1));
+        while (prev > next + 1) {
+            route.set(prev + 1, route.get(prev - 1));
             prev--;
         }
-        route.set(prev,node1);
-        route.set(prev+1,node2);
+        route.set(prev, node1);
+        route.set(prev + 1, node2);
     }
 
-    public void shift20(Route other, int prev, int next){
+    public void shift20(Route other, int prev, int next) {
         Customer node1 = (Customer) this.getNode(prev);
-        Customer node2 = (Customer) this.getNode(prev+1);
+        Customer node2 = (Customer) this.getNode(prev + 1);
         for (int i = prev; i < this.length() - 2; i++) {
-            this.route.set(i,route.get(i+2));
+            this.route.set(i, route.get(i + 2));
         }
-        route.remove(route.size()-1);
-        route.remove(route.size()-1);
+        route.remove(route.size() - 1);
+        route.remove(route.size() - 1);
         int weightChg = node1.need + node2.need;
         int timeChg = node1.duration + node2.duration;
-        update(-weightChg,-timeChg);
+        update(-weightChg, -timeChg);
         other.route.add(null);
         other.route.add(null);
         for (int i = other.route.size() - 1; i > next + 2; i--) {
-            other.route.set(i,other.route.get(i-2));
+            other.route.set(i, other.route.get(i - 2));
         }
-        other.route.set(next+1,node1);
-        other.route.set(next+2,node2);
-        other.update(weightChg,timeChg);
+        other.route.set(next + 1, node1);
+        other.route.set(next + 2, node2);
+        other.update(weightChg, timeChg);
     }
 
     /**
@@ -188,13 +188,13 @@ public class Route {
 
     public void twoOptStar1(Route other, int prev, int next) {
 //      weightChg&timeChg
-        int weightChg=0,timeChg=0;
-        for (int i = prev+1; i < route.size(); i++) {
-            weightChg += ((Customer)route.get(i)).need;
+        int weightChg = 0, timeChg = 0;
+        for (int i = prev + 1; i < route.size(); i++) {
+            weightChg += ((Customer) route.get(i)).need;
             timeChg += route.get(i).duration;
         }
         for (int i = 0; i <= next; i++) {
-            weightChg -= ((Customer)other.route.get(i)).need;
+            weightChg -= ((Customer) other.route.get(i)).need;
             timeChg -= other.route.get(i).duration;
         }
 
@@ -231,19 +231,19 @@ public class Route {
         for (int i = 0; i < initMainSize - 1 - prev; i++) {
             other.route.set(i, tmp[i]);
         }
-        update(-weightChg,-timeChg);
-        other.update(weightChg,timeChg);
+        update(-weightChg, -timeChg);
+        other.update(weightChg, timeChg);
     }
 
     public void twoOptStar2(Route other, int prev, int next) {
 //      weightChg&timeChg
-        int weightChg=0,timeChg=0;
-        for (int i = prev+1; i < route.size(); i++) {
-            weightChg += ((Customer)route.get(i)).need;
+        int weightChg = 0, timeChg = 0;
+        for (int i = prev + 1; i < route.size(); i++) {
+            weightChg += ((Customer) route.get(i)).need;
             timeChg += route.get(i).duration;
         }
-        for (int i = next+1; i < other.route.size(); i++) {
-            weightChg -= ((Customer)other.route.get(i)).need;
+        for (int i = next + 1; i < other.route.size(); i++) {
+            weightChg -= ((Customer) other.route.get(i)).need;
             timeChg -= other.route.get(i).duration;
         }
 
@@ -276,8 +276,8 @@ public class Route {
             other.route.set(i, tmp[i]);
         }
 
-        update(-weightChg,-timeChg);
-        other.update(weightChg,timeChg);
+        update(-weightChg, -timeChg);
+        other.update(weightChg, timeChg);
     }
 
     public void update(int weightChg, int timeChg) {

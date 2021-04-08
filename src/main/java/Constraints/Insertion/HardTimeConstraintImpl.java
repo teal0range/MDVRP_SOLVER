@@ -7,9 +7,9 @@ import Operators.OperationContext;
 public class HardTimeConstraintImpl extends HardTimeConstraint {
     @Override
     public ConsStatus fulfilled(OperationContext context) {
-        int maxDuration = ((Depot)context.mainRoute.start).maxDuration;
+        int maxDuration = ((Depot) context.mainRoute.start).maxDuration;
         int currentTimeCost = context.mainRoute.getTimeCost();
-        if (currentTimeCost+context.operateNodes[0].duration>maxDuration)return ConsStatus.NOT_FULFILLED_BREAK;
+        if (currentTimeCost + context.operateNodes[0].duration > maxDuration) return ConsStatus.NOT_FULFILLED_BREAK;
         else return ConsStatus.FULFILLED;
     }
 }

@@ -4,9 +4,8 @@ import Common.Problem;
 import Common.Solution;
 import Operators.BaseOperator;
 import Operators.Insertion;
-import Operators.OperationSelector;
 
-public class GreedyGenerator extends Generator{
+public class GreedyGenerator extends Generator {
 
     BaseOperator operator;
 
@@ -23,7 +22,7 @@ public class GreedyGenerator extends Generator{
     }
 
 
-    private void executeGreedyAlgo(Solution solution){
+    private void executeGreedyAlgo(Solution solution) {
         operator.doOperateAll(solution);
     }
 }

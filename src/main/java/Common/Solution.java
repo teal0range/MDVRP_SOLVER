@@ -5,7 +5,6 @@ import Utils.RandomController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Solution {
     public List<Route> routes;
@@ -13,7 +12,7 @@ public class Solution {
     public Problem problem;
     private int autoIncrement;
 
-    public Solution(List<Route> routes, Problem problem,List<Node> unassignedCustomer) {
+    public Solution(List<Route> routes, Problem problem, List<Node> unassignedCustomer) {
         this.routes = routes;
         this.unassignedCustomer = unassignedCustomer;
         this.problem = problem;
@@ -21,12 +20,12 @@ public class Solution {
     }
 
     public Solution(List<Route> routes, Problem problem) {
-        this(routes,problem, new ArrayList<>());
+        this(routes, problem, new ArrayList<>());
     }
 
-    public Solution(Solution other){
+    public Solution(Solution other) {
         this.routes = new ArrayList<>();
-        for (Route route:other.getRoutes()){
+        for (Route route : other.getRoutes()) {
             this.routes.add(new Route(route));
         }
         this.problem = other.problem;
@@ -34,7 +33,7 @@ public class Solution {
         this.autoIncrement = other.getAutoIncrement();
     }
 
-    public void shuffle(){
+    public void shuffle() {
         RandomController.shuffle(routes);
     }
 
@@ -46,26 +45,26 @@ public class Solution {
         return autoIncrement;
     }
 
-    public double getDistance(){
+    public double getDistance() {
         double distance = 0;
-        for (Route route:routes){
+        for (Route route : routes) {
             for (int i = 0; i < route.length(); i++) {
-                distance += problem.getDistance(route.getNode(i-1),route.getNode(i));
+                distance += problem.getDistance(route.getNode(i - 1), route.getNode(i));
             }
-            distance += problem.getDistance(route.getNode(route.length()-1),route.getNode(route.length()));
+            distance += problem.getDistance(route.getNode(route.length() - 1), route.getNode(route.length()));
         }
         return distance;
     }
 
-    public void destroy(int index){
-        if (this.routes.size()==0){
+    public void destroy(int index) {
+        if (this.routes.size() == 0) {
             return;
         }
-        this.unassignedCustomer.addAll(this.routes.get(this.routes.size()-1).getRoute());
+        this.unassignedCustomer.addAll(this.routes.get(this.routes.size() - 1).getRoute());
         this.routes.remove(index);
     }
 
-    public void addRoute(Route route){
+    public void addRoute(Route route) {
         route.setId(autoIncrement++);
         routes.add(route);
     }

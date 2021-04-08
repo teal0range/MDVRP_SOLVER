@@ -27,7 +27,7 @@ public abstract class Generator {
         routes = new ArrayList<>();
     }
 
-    protected Solution initSolution(){
+    protected Solution initSolution() {
         List<Route> routes = new ArrayList<>();
         List<Node> unassigned = new ArrayList<>(Arrays.asList(problem.customers));
         return new Solution(routes, problem, unassigned);

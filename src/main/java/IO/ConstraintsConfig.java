@@ -2,7 +2,7 @@ package IO;
 
 import java.util.ArrayList;
 
-public class ConstraintsConfig{
+public class ConstraintsConfig {
     public ArrayList<String> hardConstraints;
     public ArrayList<String> softConstraints;
     public ArrayList<String> constraints;

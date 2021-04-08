@@ -1,9 +1,5 @@
 package Common.Node;
 
-import Common.Route;
-
-import java.util.Objects;
-
 public abstract class Node {
     public int id;
     public double x;

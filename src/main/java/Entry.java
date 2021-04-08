@@ -2,7 +2,10 @@ import Algorithm.GreedyGenerator;
 import Common.Problem;
 import Common.Solution;
 import IO.CourdeauInstanceReader;
-import Operators.*;
+import Operators.Insertion;
+import Operators.OperationSelector;
+import Operators.Shift10;
+import Operators.Swap11;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -12,8 +15,8 @@ import java.util.Random;
 
 import static org.apache.log4j.LogManager.getLogger;
 
-public  class  Entry {
-    public  static  void  main(String[] args) throws IOException {
+public class Entry {
+    public static void main(String[] args) throws IOException {
         Logger logger = getLogger(Entry.class);
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Solution solution = new GreedyGenerator(problems[0]).build();
@@ -28,10 +31,10 @@ public  class  Entry {
             OperationSelector operationSelector = opt.get(new Random().nextInt(opt.size()));
             double distance = solution.getDistance();
             operationSelector.doOperateAll(solution);
-            if (solution.getDistance()-distance < -0.001) {
+            if (solution.getDistance() - distance < -0.001) {
                 logger.info(String.format("%s opt: decreased %.5f", operationSelector.getClass().getName(), -distance + solution.getDistance()));
             }
-            if (solution.getDistance() < bestSol.getDistance()){
+            if (solution.getDistance() < bestSol.getDistance()) {
                 bestSol = new Solution(solution);
             }
         }

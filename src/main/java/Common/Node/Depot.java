@@ -1,6 +1,6 @@
 package Common.Node;
 
-public class Depot extends Node{
+public class Depot extends Node {
     public int maxVehicleLoad;
     public int maxDuration;
 

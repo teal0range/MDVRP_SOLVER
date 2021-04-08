@@ -5,21 +5,21 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 
-public class TwoOpt extends BaseOperator{
+public class TwoOpt extends BaseOperator {
     public TwoOpt(Problem problem) {
         super(problem);
     }
 
     @Override
     public void singleOperate(Solution solution, OperationContext context) {
-        context.mainRoute.twoOpt(context.operatePos[0]+1,context.operatePos[1]);
+        context.mainRoute.twoOpt(context.operatePos[0] + 1, context.operatePos[1]);
     }
 
     @Override
     public void doOperateAll(Solution solution) {
         OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.TwoOpt).
                 setOperatePos(new Integer[2]).build();
-        for (Route mainRoute:solution.getRoutes()) {
+        for (Route mainRoute : solution.getRoutes()) {
             context.setMainRoute(mainRoute);
             for (int i = 0; i < mainRoute.length() - 2; i++) {
                 context.setOperatePos(0, i);

@@ -5,7 +5,7 @@ import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 import org.apache.log4j.Logger;
 
-public abstract class BaseOperator implements OperationSelector,ConstrainedOpt {
+public abstract class BaseOperator implements OperationSelector, ConstrainedOpt {
     Problem problem;
     HardConstraintManager hardConstraintManager;
     SoftConstraintManager softConstraintManager;

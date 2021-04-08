@@ -1,6 +1,6 @@
 package Common.Node;
 
-public class Customer extends Node{
+public class Customer extends Node {
     public int need;
 
     public Customer(int id, double x, double y, int duration, int need) {

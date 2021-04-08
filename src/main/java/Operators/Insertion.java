@@ -17,12 +17,13 @@ import java.util.Collections;
 public class Insertion extends BaseOperator {
     /**
      * Ruin & Recreate
+     *
      * @param problem prob description
      */
 
     private Ruin ruin;
 
-    public Insertion(Problem problem,Ruin ruin){
+    public Insertion(Problem problem, Ruin ruin) {
         super(problem);
         this.ruin = ruin;
     }
@@ -49,19 +50,19 @@ public class Insertion extends BaseOperator {
     @Override
     public void singleOperate(Solution solution, OperationContext context) {
         RandomController.shuffle(solution.unassignedCustomer);
-        for (Node node:solution.unassignedCustomer){
+        for (Node node : solution.unassignedCustomer) {
             Customer customer = (Customer) node;
             context = new OperationContext.Builder(problem, OperationContext.operatorType.INSERT).
                     setOperatePos(new Integer[1]).setOperateNodes(new Node[1]).build();
             OperationContext bestContext = null;
             double minInsertCost = Double.MAX_VALUE;
-            for(Route route:solution.routes){
-                context.setMainRoute(route).setOperateNodes(0,customer);
+            for (Route route : solution.routes) {
+                context.setMainRoute(route).setOperateNodes(0, customer);
                 for (int i = 0; i <= route.length(); i++) {
-                    context.setOperatePos(0,i);
-                    if (hardConstraintManager.fulfilled(context)!= HardConstraint.ConsStatus.FULFILLED)continue;
+                    context.setOperatePos(0, i);
+                    if (hardConstraintManager.fulfilled(context) != HardConstraint.ConsStatus.FULFILLED) continue;
                     double costChg = softConstraintManager.fulfilled(context);
-                    if (minInsertCost > costChg){
+                    if (minInsertCost > costChg) {
                         minInsertCost = costChg;
                         bestContext = context.copy();
                     }
@@ -70,22 +71,22 @@ public class Insertion extends BaseOperator {
 
             double minRouteCost = Double.MAX_VALUE;
             Depot bestDepot = null;
-            for(Depot depot:problem.depots){
-                double costChg = costOfNewRoute(customer,depot);
-                if (costChg < minRouteCost){
+            for (Depot depot : problem.depots) {
+                double costChg = costOfNewRoute(customer, depot);
+                if (costChg < minRouteCost) {
                     minRouteCost = costChg;
                     bestDepot = depot;
                 }
             }
-            if (bestContext==null&&bestDepot==null){
+            if (bestContext == null && bestDepot == null) {
                 return;
             }
-            if (minRouteCost < minInsertCost||bestContext==null){
-                assert bestDepot!=null;
-                Route route = new Route(new ArrayList<>(Collections.singletonList(customer)),bestDepot,bestDepot);
+            if (minRouteCost < minInsertCost || bestContext == null) {
+                assert bestDepot != null;
+                Route route = new Route(new ArrayList<>(Collections.singletonList(customer)), bestDepot, bestDepot);
                 solution.addRoute(route);
-            }else {
-                bestContext.mainRoute.addNode(bestContext.operatePos[0],bestContext.operateNodes[0]);
+            } else {
+                bestContext.mainRoute.addNode(bestContext.operatePos[0], bestContext.operateNodes[0]);
             }
         }
         solution.unassignedCustomer.clear();
@@ -94,7 +95,7 @@ public class Insertion extends BaseOperator {
     @Override
     public void doOperateAll(Solution solution) {
         ruin.doOuterRuin(solution);
-        singleOperate(solution,null);
+        singleOperate(solution, null);
     }
 
     @Override
@@ -107,7 +108,7 @@ public class Insertion extends BaseOperator {
 
     }
 
-    private double costOfNewRoute(Customer customer,Depot depot){
-        return this.problem.getDistance(customer,depot) * 2;
+    private double costOfNewRoute(Customer customer, Depot depot) {
+        return this.problem.getDistance(customer, depot) * 2;
     }
 }
