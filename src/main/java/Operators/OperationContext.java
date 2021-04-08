@@ -4,9 +4,11 @@ import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 
+import java.util.HashMap;
+
 public class OperationContext {
     public enum operatorType{
-        INSERT,SUBSTITUTE,Shift10,Shift20,Swap11,Swap21,Swap22,TwoOpt
+        INSERT,SUBSTITUTE,Shift10,Shift20,Swap11,Swap21,Swap22,TwoOpt,TwoOptStar1,TwoOptStar2
     }
     public operatorType type;
     public Problem problem;
@@ -14,6 +16,7 @@ public class OperationContext {
     public Route sideRoute;
     public Node[] operateNodes;
     public Integer[] operatePos;
+    public HashMap<String,Object> operateVal;
 
     /**
      * 建造者模式，用set方法设置类参数，防止构造函数参数过长
@@ -25,6 +28,7 @@ public class OperationContext {
         Node[] operateNodes;
         Integer[] operatePos;
         Problem problem;
+        HashMap<String,Object> operateVal;
 
         public Builder(OperationContext context){
             this.type = context.type;
@@ -60,18 +64,24 @@ public class OperationContext {
             return this;
         }
 
+        public Builder setOperateVal(HashMap<String,Object> map){
+            this.operateVal = map;
+            return this;
+        }
+
         public OperationContext build(){
-            return new OperationContext(problem, type,mainRoute,sideRoute,operateNodes,operatePos);
+            return new OperationContext(problem, type,mainRoute,sideRoute,operateNodes,operatePos,operateVal);
         }
     }
 
-    private OperationContext(Problem problem, operatorType type, Route mainRoute, Route sideRoute, Node[] operateNodes, Integer[] operatePos) {
+    private OperationContext(Problem problem, operatorType type, Route mainRoute, Route sideRoute, Node[] operateNodes, Integer[] operatePos,HashMap<String,Object> operateVal) {
         this.type = type;
         this.mainRoute = mainRoute;
         this.sideRoute = sideRoute;
         this.operateNodes = operateNodes;
         this.operatePos = operatePos;
         this.problem = problem;
+        this.operateVal = operateVal;
     }
 
     public OperationContext setMainRoute(Route mainRoute) {
@@ -81,6 +91,11 @@ public class OperationContext {
 
     public OperationContext setSideRoute(Route sideRouteRoute) {
         this.sideRoute = sideRouteRoute;
+        return this;
+    }
+
+    public OperationContext setOperateVal(String key,Object val){
+        this.operateVal.put(key,val);
         return this;
     }
 

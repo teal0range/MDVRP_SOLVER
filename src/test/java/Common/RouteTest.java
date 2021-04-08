@@ -8,7 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.IntStream;
 
 public class RouteTest {
 
@@ -130,6 +133,28 @@ public class RouteTest {
         Assert.assertEquals(3,route.getNode(0).id);
         Assert.assertEquals(0,sideRoute.getNode(3).id);
         Assert.assertEquals(1,sideRoute.getNode(4).id);
+    }
+
+    @Test
+    public void twoOptStar1() {
+        route.twoOptStar1(sideRoute,2,2);
+        int[] IDMain = new int[]{0, 1,2,2,1, 0};
+        int[] IDSide = new int[]{9,8,7,6,5,4,3,3,4,5,6,7,8,9};
+        int[] actualMain = route.getRoute().stream().mapToInt((r) -> r.id).toArray();
+        int[] actualSide = sideRoute.getRoute().stream().mapToInt((r) -> r.id).toArray();
+        Assert.assertArrayEquals(IDMain,actualMain);
+        Assert.assertArrayEquals(IDSide,actualSide);
+    }
+
+    @Test
+    public void twoOptStar2() {
+        route.twoOptStar2(sideRoute,2,2);
+        int[] IDMain = new int[]{0, 1,2, 3,4,5,6,7,8,9};
+        int[] IDSide = new int[]{9,8,7,6,5,4,3,2,1,0};
+        int[] actualMain = route.getRoute().stream().mapToInt((r) -> r.id).toArray();
+        int[] actualSide = sideRoute.getRoute().stream().mapToInt((r) -> r.id).toArray();
+        Assert.assertArrayEquals(IDMain,actualMain);
+        Assert.assertArrayEquals(IDSide,actualSide);
     }
 }
 

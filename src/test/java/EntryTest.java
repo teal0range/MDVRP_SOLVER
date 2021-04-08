@@ -53,9 +53,12 @@ public class EntryTest {
                 capacity -= customer.need;
                 time -= customer.duration;
             }
-            if (capacity < 0||time<0) {
-                logger.error("Constraints not satisfied");
+            if (capacity < 0) {
+                logger.error("weight constraint not satisfied");
                 flag = false;
+            }
+            if (time < 0){
+                logger.error("time constraint not satisfied");
             }
         }
 
@@ -77,6 +80,7 @@ public class EntryTest {
         opt.add(new TwoOpt(problem));
         opt.add(new Swap22(problem));
         opt.add(new Swap21(problem));
+//        opt.add(new TwoOptStar1(problem));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {

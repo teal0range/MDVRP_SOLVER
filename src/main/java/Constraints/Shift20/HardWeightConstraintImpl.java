@@ -10,7 +10,7 @@ public class HardWeightConstraintImpl extends HardWeightConstraint {
     public ConsStatus fulfilled(OperationContext context) {
         Customer cus1 = (Customer) context.mainRoute.getNode(context.operatePos[0]);
         Customer cus2 = (Customer) context.mainRoute.getNode(context.operatePos[0]+1);
-        double weightChg = cus1.need + cus2.need;
+        int weightChg = cus1.need + cus2.need;
         if (context.sideRoute.getWeight() + weightChg > ((Depot) context.sideRoute.start).maxVehicleLoad)return ConsStatus.NOT_FULFILLED_BREAK;
         return ConsStatus.FULFILLED;
     }
