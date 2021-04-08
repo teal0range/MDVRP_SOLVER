@@ -8,10 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class RouteTest {
 
     Route route;
+    Route sideRoute;
 
     @Before
     public void before(){
@@ -23,6 +25,9 @@ public class RouteTest {
                 new Depot(11,0,0,0,80,0),
                 new Depot(11,0,0,0,80,0)
         );
+//        Collections.reverse(r);
+        sideRoute = new Route(new ArrayList<>(r), new Depot(11, 0, 0, 0, 80, 0),
+                new Depot(11, 0, 0, 0, 80, 0));
     }
 
     @Test
@@ -110,4 +115,21 @@ public class RouteTest {
             Assert.assertEquals(11-i,route.getNode(i).id);
         }
     }
+
+    @Test
+    public void swap21() {
+        route.swap21(route,0,3);
+        Assert.assertEquals(3,route.getNode(0).id);
+        Assert.assertEquals(0,route.getNode(2).id);
+        Assert.assertEquals(1,route.getNode(3).id);
+    }
+
+    @Test
+    public void swap212(){
+        route.swap21(sideRoute,0,3);
+        Assert.assertEquals(3,route.getNode(0).id);
+        Assert.assertEquals(0,sideRoute.getNode(3).id);
+        Assert.assertEquals(1,sideRoute.getNode(4).id);
+    }
 }
+

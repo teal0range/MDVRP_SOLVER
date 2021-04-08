@@ -67,16 +67,16 @@ public class EntryTest {
     @Test
     public void randomOpt() throws IOException {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Problem problem = problems[16];
+        Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problem).build();
         List<OperationSelector> opt = new ArrayList<>();
         opt.add(new Shift10(problem));
         opt.add(new Swap11(problem));
         opt.add(new Shift20(problem));
-//        opt.add(new InnerSwap11(problems[0]));
         opt.add(new Insertion(problem));
         opt.add(new TwoOpt(problem));
         opt.add(new Swap22(problem));
+        opt.add(new Swap21(problem));
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 100000; i++) {
@@ -95,7 +95,7 @@ public class EntryTest {
     }
 
     @Test
-    public void testQuartz() throws SchedulerException, IOException {
+    public void testQuartz() throws IOException {
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         OperationSelector operationSelector = new Shift10(problems[0]);
     }

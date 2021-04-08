@@ -6,7 +6,7 @@ import Common.Route;
 
 public class OperationContext {
     public enum operatorType{
-        INSERT,SUBSTITUTE,Shift10,Shift20,Swap11,Swap22,TwoOpt
+        INSERT,SUBSTITUTE,Shift10,Shift20,Swap11,Swap21,Swap22,TwoOpt
     }
     public operatorType type;
     public Problem problem;

@@ -168,9 +168,16 @@ public class Route {
         }
     }
 
-    public void swap22(Route route,int prev,int next){
-        swap11(route,prev,next);
-        swap11(route,prev+1,next+1);
+    public void swap22(Route other,int prev,int next){
+        swap11(other,prev,next);
+        swap11(other,prev+1,next+1);
+    }
+
+    public void swap21(Route other,int prev,int next){
+        Node node = route.get(prev+1);
+        swap11(other,prev,next);
+        other.addNode(next+1,node);
+        route.remove(prev+1);
     }
 
 
