@@ -1,6 +1,6 @@
 package Operators;
 
-import Common.Node.Customer;
+import Common.Customer;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;

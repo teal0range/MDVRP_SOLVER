@@ -1,6 +1,6 @@
 package Constraints.TwoOptStar1;
 
-import Common.Node.Node;
+import Common.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 

@@ -1,7 +1,7 @@
 package Constraints.Insertion;
 
-import Common.Node.Customer;
-import Common.Node.Depot;
+import Common.Customer;
+import Common.Depot;
 import Constraints.HardWeightConstraint;
 import Operators.OperationContext;
 

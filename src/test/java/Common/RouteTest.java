@@ -1,8 +1,5 @@
 package Common;
 
-import Common.Node.Customer;
-import Common.Node.Depot;
-import Common.Node.Node;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

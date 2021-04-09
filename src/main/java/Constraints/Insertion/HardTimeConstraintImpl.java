@@ -1,6 +1,6 @@
 package Constraints.Insertion;
 
-import Common.Node.Depot;
+import Common.Depot;
 import Constraints.HardTimeConstraint;
 import Operators.OperationContext;
 

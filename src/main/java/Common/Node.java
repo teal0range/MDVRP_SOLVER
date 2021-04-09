@@ -1,4 +1,4 @@
-package Common.Node;
+package Common;
 
 public abstract class Node {
     public int id;

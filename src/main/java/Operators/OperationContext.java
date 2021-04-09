@@ -1,6 +1,6 @@
 package Operators;
 
-import Common.Node.Node;
+import Common.Node;
 import Common.Problem;
 import Common.Route;
 

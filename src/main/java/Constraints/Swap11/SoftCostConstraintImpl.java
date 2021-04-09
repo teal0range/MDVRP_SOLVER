@@ -1,6 +1,6 @@
 package Constraints.Swap11;
 
-import Common.Node.Node;
+import Common.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 

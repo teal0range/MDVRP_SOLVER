@@ -1,4 +1,4 @@
-package Common.Node;
+package Common;
 
 public class Customer extends Node {
     public int need;

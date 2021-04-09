@@ -1,8 +1,7 @@
 package Constraints.TwoOptStar2;
 
 import Algorithm.GreedyGenerator;
-import Common.Node.Customer;
-import Common.Node.Node;
+import Common.Customer;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
@@ -15,9 +14,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 public class SoftCostConstraintImplTest {
 

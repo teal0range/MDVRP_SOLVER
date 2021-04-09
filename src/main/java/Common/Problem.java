@@ -1,9 +1,5 @@
 package Common;
 
-import Common.Node.Customer;
-import Common.Node.Depot;
-import Common.Node.Node;
-
 import java.util.Arrays;
 
 public class Problem {

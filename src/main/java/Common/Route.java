@@ -1,8 +1,6 @@
 package Common;
 
 
-import Common.Node.Customer;
-import Common.Node.Node;
 import Utils.RandomController;
 
 import java.util.ArrayList;

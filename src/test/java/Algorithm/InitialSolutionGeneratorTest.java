@@ -1,13 +1,12 @@
 package Algorithm;
 
-import Common.Node.Customer;
-import Common.Node.Depot;
-import Common.Node.Node;
+import Common.Customer;
+import Common.Depot;
+import Common.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import IO.CourdeauInstanceReader;
-import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;

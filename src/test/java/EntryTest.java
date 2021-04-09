@@ -1,7 +1,7 @@
 import Algorithm.GreedyGenerator;
-import Common.Node.Customer;
-import Common.Node.Depot;
-import Common.Node.Node;
+import Common.Customer;
+import Common.Depot;
+import Common.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import static org.apache.log4j.LogManager.getLogger;
 

@@ -1,6 +1,6 @@
 package Constraints.Shift20;
 
-import Common.Node.Node;
+import Common.Node;
 import Constraints.SoftCostConstraint;
 import Operators.OperationContext;
 

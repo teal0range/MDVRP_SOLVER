@@ -1,6 +1,6 @@
 package Constraints.TwoOptStar2;
 
-import Common.Node.Depot;
+import Common.Depot;
 import Operators.OperationContext;
 
 public class HardTimeConstraintImpl extends Constraints.HardTimeConstraint {

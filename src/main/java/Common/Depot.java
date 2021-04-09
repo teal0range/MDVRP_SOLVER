@@ -1,4 +1,4 @@
-package Common.Node;
+package Common;
 
 public class Depot extends Node {
     public int maxVehicleLoad;

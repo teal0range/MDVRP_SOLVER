@@ -1,7 +1,7 @@
 package Constraints.Swap11;
 
-import Common.Node.Customer;
-import Common.Node.Depot;
+import Common.Customer;
+import Common.Depot;
 import Operators.OperationContext;
 
 public class HardTimeConstraintImpl extends Constraints.HardTimeConstraint {

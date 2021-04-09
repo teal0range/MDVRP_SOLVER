@@ -1,6 +1,6 @@
 package Constraints.TwoOptStar2;
 
-import Common.Node.Depot;
+import Common.Depot;
 import Constraints.HardWeightConstraint;
 import Operators.OperationContext;
 
