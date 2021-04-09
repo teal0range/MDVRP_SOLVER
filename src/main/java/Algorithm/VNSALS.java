@@ -25,7 +25,6 @@ public class VNSALS{
 
         @Override
         public void run() {
-
         }
     }
 }

@@ -54,7 +54,7 @@ public class OperationContext {
     }
 
     public enum operatorType {
-        INSERT, SUBSTITUTE, Shift10, Shift20, Swap11, Swap21, Swap22, TwoOpt, TwoOptStar1, TwoOptStar2
+        INSERT, Shift10, Shift20, Swap11, Swap21, Swap22, TwoOpt, TwoOptStar1, TwoOptStar2
     }
 
     /**

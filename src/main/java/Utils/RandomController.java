@@ -1,8 +1,6 @@
 package Utils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class RandomController {
     private static Random random = new Random(System.currentTimeMillis());
@@ -17,5 +15,14 @@ public class RandomController {
 
     public static int nextInt(int bound) {
         return random.nextInt(bound);
+    }
+
+    public static ArrayList<Integer> randIndex(int bound){
+        ArrayList<Integer> res = new ArrayList<>();
+        for (int i = 0; i < bound; i++) {
+            res.set(i, i);
+        }
+        Collections.shuffle(res);
+        return res;
     }
 }

@@ -11,12 +11,20 @@ public class Solution {
     public List<Node> unassignedCustomer;
     public Problem problem;
     private int autoIncrement;
+    private double distance;
 
     public Solution(List<Route> routes, Problem problem, List<Node> unassignedCustomer) {
         this.routes = routes;
         this.unassignedCustomer = unassignedCustomer;
         this.problem = problem;
         this.autoIncrement = 0;
+        this.distance = 0;
+        for (Route route : routes) {
+            for (int i = 0; i < route.length(); i++) {
+                distance += problem.getDistance(route.getNode(i - 1), route.getNode(i));
+            }
+            distance += problem.getDistance(route.getNode(route.length() - 1), route.getNode(route.length()));
+        }
     }
 
     public Solution(List<Route> routes, Problem problem) {
@@ -31,6 +39,7 @@ public class Solution {
         this.problem = other.problem;
         this.unassignedCustomer = new ArrayList<>(other.unassignedCustomer);
         this.autoIncrement = other.getAutoIncrement();
+        this.distance = other.getDistance();
     }
 
     public void shuffle() {
@@ -45,7 +54,15 @@ public class Solution {
         return autoIncrement;
     }
 
-    public double getDistance() {
+    public double getDistance(){
+        return distance;
+    }
+
+    public void updateDistance(double delta){
+        this.distance += delta;
+    }
+
+    public double refreshDistance() {
         double distance = 0;
         for (Route route : routes) {
             for (int i = 0; i < route.length(); i++) {
@@ -53,6 +70,7 @@ public class Solution {
             }
             distance += problem.getDistance(route.getNode(route.length() - 1), route.getNode(route.length()));
         }
+        this.distance = distance;
         return distance;
     }
 

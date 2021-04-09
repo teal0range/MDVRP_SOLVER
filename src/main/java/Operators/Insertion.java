@@ -89,6 +89,7 @@ public class Insertion extends Operator {
                 bestContext.mainRoute.addNode(bestContext.operatePos[0], bestContext.operateNodes[0]);
             }
         }
+        solution.refreshDistance();
         solution.unassignedCustomer.clear();
     }
 

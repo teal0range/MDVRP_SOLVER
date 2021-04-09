@@ -1,23 +1,19 @@
 package Utils;
 
 public class TimeController{
-    private long startTime;
-    private final long timeLimit;
+    private static long startTime;
 
-    public TimeController(long timeLimit) {
-        this.timeLimit = timeLimit;
+    public static void setTimeLimit(long timeLimit) {
+        TimeController.timeLimit = timeLimit;
     }
 
-    public TimeController(int minutes) {
-        this(minutes * 60000L);
-        startTime = System.currentTimeMillis();
-    }
+    private static long timeLimit;
 
     public void reset(){
         startTime = System.currentTimeMillis();
     }
 
-    public boolean timeIsUp(){
+    public static boolean timeIsUp(){
         return System.currentTimeMillis() - startTime >= timeLimit;
     }
 

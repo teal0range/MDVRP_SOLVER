@@ -2,6 +2,7 @@ package Constraints.TwoOptStar2;
 
 import Algorithm.GreedyGenerator;
 import Common.Node.Customer;
+import Common.Node.Node;
 import Common.Problem;
 import Common.Route;
 import Common.Solution;
@@ -14,9 +15,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
-
-import static org.junit.Assert.*;
+import java.util.List;
 
 public class SoftCostConstraintImplTest {
 
@@ -56,6 +57,7 @@ public class SoftCostConstraintImplTest {
             for (Route sideRoute : solution.getRoutes()) {
                 if (mainRoute == sideRoute || mainRoute.start != sideRoute.start) continue;
                 sideRoute.shuffle();
+                solution.refreshDistance();
                 context.setSideRoute(sideRoute);
                 for (int i = 0; i < mainRoute.length() - 1; i++) {
                     context.setOperatePos(0, i);
@@ -70,7 +72,8 @@ public class SoftCostConstraintImplTest {
                         double costBefore = solution.getDistance();
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-                            Assert.assertEquals(costBefore+costChg,solution.getDistance(),0.001);
+                            solution.updateDistance(costChg);
+                            Assert.assertEquals(costBefore+costChg,solution.refreshDistance(),0.001);
                             if (i >= mainRoute.length() - 1 || j >= sideRoute.length() - 1) break;
                             refreshOperateVal(context);
                         }

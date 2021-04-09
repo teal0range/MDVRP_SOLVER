@@ -10,7 +10,6 @@ import Operators.*;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
-import org.quartz.SchedulerException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,6 +93,9 @@ public class EntryTest {
                 bestSol = new Solution(solution);
                 logger.info(solution.getDistance());
             }
+            double distance = solution.getDistance();
+            if (Math.abs(solution.refreshDistance()-distance)>0.001) System.out.println(operationSelector.getClass().getName());
+            Assert.assertEquals(solution.refreshDistance(),distance,0.001);
         }
         Assert.assertTrue(validChecker(solution));
         System.out.println(bestSol.getDistance());

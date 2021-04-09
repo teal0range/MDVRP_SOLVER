@@ -38,6 +38,6 @@ public class Entry {
                 bestSol = new Solution(solution);
             }
         }
-        logger.info(bestSol.getDistance());
+        logger.info(bestSol.refreshDistance());
     }
 }

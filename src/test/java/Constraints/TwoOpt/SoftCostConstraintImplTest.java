@@ -14,8 +14,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
-
 public class SoftCostConstraintImplTest {
 
     public void singleOperate(Solution solution, OperationContext context) {
@@ -34,6 +32,7 @@ public class SoftCostConstraintImplTest {
         for (Route mainRoute:solution.getRoutes()) {
             context.setMainRoute(mainRoute);
             mainRoute.shuffle();
+            solution.refreshDistance();
             for (int i = 0; i < mainRoute.length() - 2; i++) {
                 context.setOperatePos(0, i);
                 for (int j = i + 2; j < mainRoute.length(); j++) {
@@ -43,7 +42,8 @@ public class SoftCostConstraintImplTest {
                     double costBefore = solution.getDistance();
                     if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                         singleOperate(solution, context);
-                        Assert.assertEquals(costBefore+costChg,solution.getDistance(),0.001);
+                        solution.updateDistance(costChg);
+                        Assert.assertEquals(costBefore+costChg,solution.refreshDistance(),0.001);
                     }
                 }
             }

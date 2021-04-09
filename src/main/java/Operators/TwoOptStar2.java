@@ -45,6 +45,7 @@ public class TwoOptStar2 extends Operator {
                             singleOperate(solution, context);
                             if (i >= mainRoute.length() - 1 || j >= sideRoute.length() - 1) break;
                             refreshOperateVal(context);
+                            solution.updateDistance(costChg);
                         }
                     }
                     weight[1] = 0;
