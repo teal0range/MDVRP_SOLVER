@@ -78,12 +78,14 @@ public class Solution {
         if (this.routes.size() == 0) {
             return;
         }
-        this.unassignedCustomer.addAll(this.routes.get(this.routes.size() - 1).getRoute());
+        this.unassignedCustomer.addAll(this.routes.get(index).getRoute());
+        this.routes.get(index).setSolution(null);
         this.routes.remove(index);
     }
 
     public void addRoute(Route route) {
         route.setId(autoIncrement++);
+        route.setSolution(this);
         routes.add(route);
     }
 }

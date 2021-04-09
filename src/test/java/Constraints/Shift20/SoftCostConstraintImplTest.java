@@ -39,7 +39,6 @@ public class SoftCostConstraintImplTest {
             for (Route sideRoute:solution.getRoutes()) {
                 context.setSideRoute(sideRoute);
                 sideRoute.shuffle();
-                solution.refreshDistance();
                 for (int i = 0; i < mainRoute.length() - 1; i++) {
                     context.setOperatePos(0, i);
                     for (int j = -1; j < sideRoute.length(); j++) { //插入在指定节点之后
@@ -50,7 +49,6 @@ public class SoftCostConstraintImplTest {
                         double costBefore = solution.getDistance();
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-                            solution.updateDistance(costChg);
                             Assert.assertEquals(costBefore + costChg, solution.refreshDistance(), 0.001);
                             if (i >= mainRoute.length() - 1) break; // shift 结点后，路径可能变短
                         }

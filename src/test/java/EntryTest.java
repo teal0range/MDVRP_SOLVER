@@ -7,6 +7,7 @@ import Common.Route;
 import Common.Solution;
 import IO.CourdeauInstanceReader;
 import Operators.*;
+import Utils.RandomController;
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
@@ -68,6 +69,7 @@ public class EntryTest {
 
     @Test
     public void randomOpt() throws IOException {
+        RandomController.setSeed(1);
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
         Problem problem = problems[4];
         Solution solution = new GreedyGenerator(problem).build();
@@ -84,7 +86,7 @@ public class EntryTest {
         logger.info(solution.getDistance());
         Solution bestSol = new Solution(solution);
         for (int i = 0; i < 200000; i++) {
-            OperationSelector operationSelector = opt.get(new Random().nextInt(opt.size()));
+            OperationSelector operationSelector = opt.get(RandomController.nextInt(opt.size()));
             operationSelector.doOperateAll(solution);
             if (!validChecker(solution)) {
                 logger.error(String.format("%s opt", operationSelector.getClass().getName()));
@@ -94,7 +96,8 @@ public class EntryTest {
                 logger.info(solution.getDistance());
             }
             double distance = solution.getDistance();
-            if (Math.abs(solution.refreshDistance()-distance)>0.001) System.out.println(operationSelector.getClass().getName());
+            if (Math.abs(solution.refreshDistance()-distance)>0.001)
+                System.out.println(i + " "+operationSelector.getClass().getName());
             Assert.assertEquals(solution.refreshDistance(),distance,0.001);
         }
         Assert.assertTrue(validChecker(solution));

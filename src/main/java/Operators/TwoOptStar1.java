@@ -43,7 +43,6 @@ public class TwoOptStar1 extends Operator {
                         double costChg = softConstraintManager.fulfilled(context);
                         if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                             singleOperate(solution, context);
-                            solution.updateDistance(costChg);
                             if (i >= mainRoute.length() - 1 || j >= sideRoute.length() - 1) break;
                             refreshOperateVal(context);
                         }

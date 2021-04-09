@@ -17,6 +17,16 @@ public class Route {
     private int weight;
     private int timeCost;
 
+    public void setSolution(Solution solution) {
+        this.solution = solution;
+    }
+
+    private Solution solution;
+
+    public Solution getSolution() {
+        return solution;
+    }
+
     public Route(List<Node> route, Node start, Node end) {
         this.route = route;
         this.start = start;
@@ -35,6 +45,7 @@ public class Route {
         this.weight = route.getWeight();
         this.timeCost = route.getTimeCost();
         this.id = route.getId();
+        this.solution = route.getSolution();
     }
 
     public static void reverseSubList(List<Node> route, int fromIndex, int toIndex) {
@@ -80,8 +91,10 @@ public class Route {
     public void subNode(int pos, Node node) {
         Node oldNode = this.route.get(pos);
         this.route.set(pos, node);
+        double distanceChg = solution.problem.getDistance(this.getNode(pos-1),node) + solution.problem.getDistance(node,this.getNode(pos+1))
+                - solution.problem.getDistance(oldNode,this.getNode(pos-1)) - solution.problem.getDistance(this.getNode(pos+1),oldNode);
         update(-((Customer) oldNode).need + ((Customer) node).need,
-                -oldNode.duration + node.duration);
+                -oldNode.duration + node.duration, distanceChg);
     }
 
     public void conNode(int st, int ed) {
@@ -91,18 +104,20 @@ public class Route {
     }
 
     public void addNode(int pos, Node node) {
+        double distanceChg = solution.problem.getDistance(node,getNode(pos-1)) +
+                solution.problem.getDistance(getNode(pos),node) -
+                solution.problem.getDistance(getNode(pos-1),getNode(pos));
         this.route.add(pos, node);
-        update(((Customer) node).need, node.duration);
+        update(((Customer) node).need, node.duration,distanceChg);
     }
 
     public void rmNode(int pos) {
         Node node = this.route.get(pos);
+        double distanceChg = - solution.problem.getDistance(node,getNode(pos-1)) -
+                solution.problem.getDistance(getNode(pos+1),node) +
+                solution.problem.getDistance(getNode(pos-1),getNode(pos+1));
         this.route.remove(pos);
-        update(-((Customer) node).need, -node.duration);
-    }
-
-    public void rmNode(Node node) {
-        this.route.remove(node);
+        update(-((Customer) node).need, -node.duration,distanceChg);
     }
 
     public void innerShift10(int prev, int next) {
@@ -131,6 +146,12 @@ public class Route {
     public void innerShift20(int prev, int next) {
         Customer node1 = (Customer) this.getNode(prev);
         Customer node2 = (Customer) this.getNode(prev + 1);
+        double distanceChg = -solution.problem.getDistance(node1,getNode(prev-1))
+                -solution.problem.getDistance(node2,getNode(prev+2))
+                -solution.problem.getDistance(getNode(next),getNode(next+1))
+                +solution.problem.getDistance(getNode(prev-1),getNode(prev+2))
+                +solution.problem.getDistance(node1,getNode(next))
+                +solution.problem.getDistance(node2,getNode(next+1));
         while (prev < next - 1) {
             route.set(prev, route.get(prev + 2));
             prev++;
@@ -141,11 +162,20 @@ public class Route {
         }
         route.set(prev, node1);
         route.set(prev + 1, node2);
+        update(0,0,distanceChg);
     }
 
     public void shift20(Route other, int prev, int next) {
         Customer node1 = (Customer) this.getNode(prev);
         Customer node2 = (Customer) this.getNode(prev + 1);
+        double distanceChg1 = - solution.problem.getDistance(node1,getNode(prev-1))
+                - solution.problem.getDistance(node1,node2)
+                - solution.problem.getDistance(node2,getNode(prev+2))
+                + solution.problem.getDistance(getNode(prev-1),getNode(prev+2));
+        double distanceChg2 = solution.problem.getDistance(node1,other.getNode(next))
+                + solution.problem.getDistance(node1,node2)
+                + solution.problem.getDistance(node2,other.getNode(next+1))
+                - solution.problem.getDistance(other.getNode(next),other.getNode(next+1));
         for (int i = prev; i < this.length() - 2; i++) {
             this.route.set(i, route.get(i + 2));
         }
@@ -153,7 +183,7 @@ public class Route {
         route.remove(route.size() - 1);
         int weightChg = node1.need + node2.need;
         int timeChg = node1.duration + node2.duration;
-        update(-weightChg, -timeChg);
+        update(-weightChg, -timeChg, distanceChg1);
         other.route.add(null);
         other.route.add(null);
         for (int i = other.route.size() - 1; i > next + 2; i--) {
@@ -161,7 +191,7 @@ public class Route {
         }
         other.route.set(next + 1, node1);
         other.route.set(next + 2, node2);
-        other.update(weightChg, timeChg);
+        other.update(weightChg, timeChg, distanceChg2);
     }
 
     /**
@@ -171,7 +201,12 @@ public class Route {
      * @param end   结束
      */
     public void twoOpt(int start, int end) {
+        double distanceChg = -solution.problem.getDistance(getNode(start),getNode(start-1))
+                -solution.problem.getDistance(getNode(end),getNode(end+1))
+                +solution.problem.getDistance(getNode(end),getNode(start-1))
+                +solution.problem.getDistance(getNode(start),getNode(end+1));
         reverseSubList(route, start, end);
+        update(0,0,distanceChg);
     }
 
     public void swap22(Route other, int prev, int next) {
@@ -188,6 +223,8 @@ public class Route {
 
     public void twoOptStar1(Route other, int prev, int next) {
 //      weightChg&timeChg
+        double mainPrevLen = this.getDistance();
+        double sidePrevLen = other.getDistance();
         int weightChg = 0, timeChg = 0;
         for (int i = prev + 1; i < route.size(); i++) {
             weightChg += ((Customer) route.get(i)).need;
@@ -231,11 +268,13 @@ public class Route {
         for (int i = 0; i < initMainSize - 1 - prev; i++) {
             other.route.set(i, tmp[i]);
         }
-        update(-weightChg, -timeChg);
-        other.update(weightChg, timeChg);
+        update(-weightChg, -timeChg,getDistance()-mainPrevLen);
+        other.update(weightChg, timeChg, other.getDistance()-sidePrevLen);
     }
 
     public void twoOptStar2(Route other, int prev, int next) {
+        double mainPrevLen = this.getDistance();
+        double sidePrevLen = other.getDistance();
 //      weightChg&timeChg
         int weightChg = 0, timeChg = 0;
         for (int i = prev + 1; i < route.size(); i++) {
@@ -276,13 +315,23 @@ public class Route {
             other.route.set(i, tmp[i]);
         }
 
-        update(-weightChg, -timeChg);
-        other.update(weightChg, timeChg);
+        update(-weightChg, -timeChg,getDistance()-mainPrevLen);
+        other.update(weightChg, timeChg, other.getDistance()-sidePrevLen);
     }
 
-    public void update(int weightChg, int timeChg) {
+    public void update(int weightChg, int timeChg, double distanceChg) {
         this.weight += weightChg;
         this.timeCost += timeChg;
+        solution.updateDistance(distanceChg);
+    }
+
+    public double getDistance(){
+        double distance = 0;
+        for (int i = 0; i < route.size(); i++) {
+            distance += solution.problem.getDistance(getNode(i-1),getNode(i));
+        }
+        distance += solution.problem.getDistance(getNode(route.size()-1),getNode(route.size()));
+        return distance;
     }
 
     /**
@@ -290,6 +339,7 @@ public class Route {
      */
     public void shuffle() {
         RandomController.shuffle(this.route);
+        solution.refreshDistance();
     }
 
     @Override

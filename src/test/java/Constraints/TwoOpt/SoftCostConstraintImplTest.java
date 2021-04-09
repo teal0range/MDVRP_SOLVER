@@ -32,7 +32,6 @@ public class SoftCostConstraintImplTest {
         for (Route mainRoute:solution.getRoutes()) {
             context.setMainRoute(mainRoute);
             mainRoute.shuffle();
-            solution.refreshDistance();
             for (int i = 0; i < mainRoute.length() - 2; i++) {
                 context.setOperatePos(0, i);
                 for (int j = i + 2; j < mainRoute.length(); j++) {
@@ -42,7 +41,6 @@ public class SoftCostConstraintImplTest {
                     double costBefore = solution.getDistance();
                     if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                         singleOperate(solution, context);
-                        solution.updateDistance(costChg);
                         Assert.assertEquals(costBefore+costChg,solution.refreshDistance(),0.001);
                     }
                 }

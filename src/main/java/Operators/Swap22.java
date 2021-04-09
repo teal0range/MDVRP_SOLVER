@@ -32,7 +32,6 @@ public class Swap22 extends Operator {
                             double costChg = softConstraintManager.fulfilled(context);
                             if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                                 singleOperate(solution, context);
-                                solution.updateDistance(costChg);
                             }
                         }
                     }
@@ -45,7 +44,6 @@ public class Swap22 extends Operator {
                             double costChg = softConstraintManager.fulfilled(context);
                             if (status == HardConstraint.ConsStatus.FULFILLED && costChg < 0) {
                                 singleOperate(solution, context);
-                                solution.updateDistance(costChg);
                             }
                         }
                     }
