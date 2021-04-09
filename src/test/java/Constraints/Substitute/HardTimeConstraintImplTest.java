@@ -22,8 +22,6 @@ public class HardTimeConstraintImplTest {
                 new Depot(11,0,0,0,80,0)
         );
     }
-
-
 }
 
 

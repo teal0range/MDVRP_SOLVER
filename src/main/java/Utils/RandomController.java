@@ -15,7 +15,7 @@ public class RandomController {
         Collections.shuffle(list, random);
     }
 
-    public static int nextInt() {
-        return random.nextInt();
+    public static int nextInt(int bound) {
+        return random.nextInt(bound);
     }
 }

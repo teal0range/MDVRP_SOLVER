@@ -1,6 +1,6 @@
 package Constraints;
 
-import IO.ConstraintsConfigReader;
+import IO.ConfigReader;
 import Operators.OperationContext;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SoftConstraintManager extends SoftCostConstraint {
-    public static final ArrayList<String> constraints2Load = new ConstraintsConfigReader().readConfig().softConstraints;
+    public static final ArrayList<String> constraints2Load = new ConfigReader().readConfig().softConstraints;
     private static final HashMap<String, SoftConstraintManager> mapper = new HashMap<>();
     protected List<SoftConstraint> constraints;
 

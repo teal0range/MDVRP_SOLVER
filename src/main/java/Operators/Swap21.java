@@ -5,7 +5,7 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 
-public class Swap21 extends BaseOperator {
+public class Swap21 extends Operator {
     public Swap21(Problem problem) {
         super(problem);
     }

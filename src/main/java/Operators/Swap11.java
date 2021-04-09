@@ -7,7 +7,7 @@ import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 
-public class Swap11 extends BaseOperator {
+public class Swap11 extends Operator {
     public Swap11(Problem problem) {
         super(problem);
     }

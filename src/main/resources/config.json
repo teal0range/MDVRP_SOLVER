@@ -7,9 +7,13 @@
     "Cost"
   ],
   "operators": [
-    "InnerShift10",
-    "OuterShift10",
-    "OuterSwap10",
-    "InnerSwap10"
+    "Shift10",
+    "Shift20",
+    "Swap11",
+    "Swap21",
+    "Swap22",
+    "TwoOpt",
+    "TwoOptStar1",
+    "TwoOptStar2"
   ]
 }

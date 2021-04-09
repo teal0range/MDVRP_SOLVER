@@ -5,13 +5,13 @@ import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 import org.apache.log4j.Logger;
 
-public abstract class BaseOperator implements OperationSelector, ConstrainedOpt {
+public abstract class Operator implements OperationSelector, ConstrainedOpt {
     Problem problem;
     HardConstraintManager hardConstraintManager;
     SoftConstraintManager softConstraintManager;
     Logger logger = Logger.getLogger(this.getClass());
 
-    public BaseOperator(Problem problem) {
+    public Operator(Problem problem) {
         this.problem = problem;
         softConstraintManager = getSoftConstraintManager();
         hardConstraintManager = getHardConstraintManager();

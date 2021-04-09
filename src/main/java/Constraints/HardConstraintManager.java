@@ -1,6 +1,6 @@
 package Constraints;
 
-import IO.ConstraintsConfigReader;
+import IO.ConfigReader;
 import Operators.OperationContext;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HardConstraintManager implements HardConstraint {
 
-    public static final ArrayList<String> constraints2Load = new ConstraintsConfigReader().readConfig().hardConstraints;
+    public static final ArrayList<String> constraints2Load = new ConfigReader().readConfig().hardConstraints;
     private static final HashMap<String, HardConstraintManager> mapper = new HashMap<>();
     protected List<HardConstraint> constraints;
 

@@ -14,7 +14,7 @@ import Utils.RandomController;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Insertion extends BaseOperator {
+public class Insertion extends Operator {
     /**
      * Ruin & Recreate
      *

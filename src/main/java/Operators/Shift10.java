@@ -5,7 +5,7 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 
-public class Shift10 extends BaseOperator {
+public class Shift10 extends Operator {
     public Shift10(Problem problem) {
         super(problem);
     }

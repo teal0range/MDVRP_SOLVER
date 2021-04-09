@@ -2,12 +2,12 @@ package Algorithm;
 
 import Common.Problem;
 import Common.Solution;
-import Operators.BaseOperator;
+import Operators.Operator;
 import Operators.Insertion;
 
 public class GreedyGenerator extends Generator {
 
-    BaseOperator operator;
+    Operator operator;
 
     public GreedyGenerator(Problem problem) {
         super(problem);

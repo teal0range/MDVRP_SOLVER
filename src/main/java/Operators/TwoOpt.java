@@ -5,7 +5,7 @@ import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
 
-public class TwoOpt extends BaseOperator {
+public class TwoOpt extends Operator {
     public TwoOpt(Problem problem) {
         super(problem);
     }
