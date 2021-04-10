@@ -12,16 +12,17 @@ public class ConfigReader implements IConfigReader<BasicConfig> {
     private static final ConfigReader configReader = new ConfigReader();
     private BasicConfig basicConfig = null;
 
-    private ConfigReader(){}
+    private ConfigReader() {
+    }
 
-    public static ConfigReader getInstance(){
+    public static ConfigReader getInstance() {
         return configReader;
     }
 
     @Override
     public BasicConfig readConfig() {
         try {
-            if (basicConfig==null) {
+            if (basicConfig == null) {
                 BufferedReader br = new BufferedReader(new FileReader("src/main/resources/config.json"));
                 Gson gson = new Gson();
                 JsonObject object = (JsonObject) new JsonParser().parse(br);

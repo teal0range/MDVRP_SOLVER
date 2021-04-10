@@ -25,11 +25,8 @@
   ],
   "parameters": {
     "sigma": 0.1,
-    "iterMax": 500,
-    "Nshake": 5,
-    "maxLevel": 3,
-    "alsTraining": 0.15,
-    "alsReset": 0.3,
+    "iterMax": 1000000,
+    "threshold": 5,
     "maxTime": 60
   }
 }

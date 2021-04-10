@@ -10,13 +10,13 @@ public class BasicConfig {
     public List<String> softConstraints;
     public List<String> operators;
     public List<String> perturbation;
-    public Map<String,Object> parameters;
+    public Map<String, Object> parameters;
 
     public BasicConfig(List<String> hardConstraints,
                        List<String> softConstraints,
                        List<String> operators,
                        List<String> perturbation,
-                       Map<String,Object> parameters) {
+                       Map<String, Object> parameters) {
         this.hardConstraints = hardConstraints;
         this.softConstraints = softConstraints;
         this.operators = operators;

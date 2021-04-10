@@ -22,11 +22,17 @@ public class SequentialPerturbation implements IPerturbation, OperationSelector 
         for (int i = 0; i < times; i++) {
             perturb(solution);
         }
+        solution.refreshDistance();
     }
 
     @Override
     public void perturb(Solution solution) {
         doOperateAll(solution);
+    }
+
+    @Override
+    public void reset() {
+        counter = 0;
     }
 
     @Override

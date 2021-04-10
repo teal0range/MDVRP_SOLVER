@@ -3,7 +3,7 @@ package Operators;
 import Common.Problem;
 import Common.Solution;
 
-public class RecreatePerturbation implements OperationSelector,IPerturbation{
+public class RecreatePerturbation implements OperationSelector, IPerturbation {
     OperationSelector operationSelector;
 
 
@@ -24,6 +24,11 @@ public class RecreatePerturbation implements OperationSelector,IPerturbation{
     }
 
     @Override
+    public void reset() {
+
+    }
+
+    @Override
     public void doOperateAll(Solution solution) {
         operationSelector.doOperateAll(solution);
     }
@@ -35,6 +40,6 @@ public class RecreatePerturbation implements OperationSelector,IPerturbation{
 
     @Override
     public void doOperateRandom(Solution solution, double threshold) {
-        operationSelector.doOperateRandom(solution,threshold);
+        operationSelector.doOperateRandom(solution, threshold);
     }
 }

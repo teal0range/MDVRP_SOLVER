@@ -2,52 +2,55 @@ package Algorithm;
 
 import Common.Problem;
 import Common.Solution;
-import IO.BasicConfig;
 import IO.ConfigReader;
 import Operators.IPerturbation;
-import Operators.Operator;
 import Operators.OperatorManager;
+import Operators.RecreatePerturbation;
+import Utils.TimeController;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 
-public class VNSALS implements Runnable{
-    Map<String,Object> parameters = ConfigReader.getInstance().readConfig().parameters;
+public class VNSALS {
+    Map<String, Object> parameters = ConfigReader.getInstance().readConfig().parameters;
     OperatorManager operatorManager;
     Problem problem;
     Generator generator;
     IPerturbation perturbation;
     Solution bestSolution;
+    Logger logger = Logger.getLogger(VNSALS.class);
 
     public VNSALS(Problem problem) {
         this.operatorManager = OperatorManager.getInstance(problem);
         this.problem = problem;
         generator = new GreedyGenerator(problem);
+        perturbation = new RecreatePerturbation(problem);
     }
 
-    @Override
     public void run() {
         Solution solution = generator.build();
         bestSolution = new Solution(solution);
-        int p=1,k=1,iter=0,iterAdaptive=0;
-        int IterMax = (int) parameters.get("iterMax");
-        double AlsTraining = (double) parameters.get("alsTraining");
-        int MaxLevel = (int) parameters.get("maxLevel");
-        int Nshake = (int) parameters.get("Nshake");
-        double AlsReset = (double) parameters.get("alsReset");
-    }
-
-
-    private static class OptimizeJob implements Runnable{
-        Solution solution;
-
-        public OptimizeJob(Solution solution) {
-            this.solution = solution;
+        TimeController.setTimeLimit(((Double) parameters.get("maxTime")).intValue());
+        TimeController.reset();
+        int p = 1, iter = 0;
+        int IterMax = ((Double) parameters.get("iterMax")).intValue();
+        int threshold = ((Double) parameters.get("threshold")).intValue();
+        while (iter < IterMax & !TimeController.timeIsUp()) {
+            operatorManager.sigmaLearn(solution);
+            if (solution.getDistance() < bestSolution.getDistance()) {
+                bestSolution = new Solution(solution);
+                logger.info(bestSolution.getDistance());
+                perturbation.reset();
+                p = 1;
+                iter = 0;
+            } else {
+                p++;
+                iter++;
+            }
+            if (p>threshold) {
+                perturbation.perturb(solution, p);
+                p = 1;
+            }
         }
-
-        @Override
-        public void run() {
-
-        }
     }
-
 }

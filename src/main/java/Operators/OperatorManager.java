@@ -12,29 +12,28 @@ import java.util.Map;
 
 public class OperatorManager {
     public static final List<String> opt2Load = ConfigReader.getInstance().readConfig().operators;
-    private static final HashMap<Problem, OperatorManager> operatorManagerHashMap = new HashMap<>();
     private final List<Operator> operators;
-    private static List<Integer> successRecorder;
+    private final List<Integer> successRecorder;
     private int counter;
     public static final double sigma = (double) ConfigReader.getInstance().readConfig().parameters.get("sigma");
-    private final Map<Operator,Integer> invertedIndex;
+    private final Map<Operator, Integer> invertedIndex;
 
     private OperatorManager(Problem problem) {
-        this(problem,OperatorManager.opt2Load);
+        this(problem, OperatorManager.opt2Load);
     }
 
     private OperatorManager(Problem problem, List<String> optNames) {
         this.operators = new ArrayList<>();
         successRecorder = new ArrayList<>();
-        invertedIndex  = new HashMap<>();
+        invertedIndex = new HashMap<>();
         try {
-            for (int i = 0;i<optNames.size();i++) {
+            for (int i = 0; i < optNames.size(); i++) {
                 String optName = optNames.get(i);
                 Class<?> opt = Class.forName(String.format("Operators.%s", optName));
                 Operator operator = (Operator) opt.getConstructor(Problem.class).newInstance(problem);
                 operators.add(operator);
                 successRecorder.add(0);
-                invertedIndex.put(operator,i);
+                invertedIndex.put(operator, i);
             }
             counter = 0;
         } catch (Exception e) {
@@ -43,9 +42,7 @@ public class OperatorManager {
     }
 
     public static OperatorManager getInstance(Problem problem) {
-        if (!operatorManagerHashMap.containsKey(problem))
-            operatorManagerHashMap.put(problem, new OperatorManager(problem));
-        return operatorManagerHashMap.get(problem);
+        return new OperatorManager(problem);
     }
 
     public static OperatorManager getInstance(Problem problem, List<String> optNames) {
@@ -60,37 +57,47 @@ public class OperatorManager {
     }
 
 
-    public void randomNeighborhood(Solution solution){
+    public void randomNeighborhood(Solution solution) {
         Operator operator = this.randomOpt();
         double costBefore = solution.getDistance();
         operator.doOperateAll(solution);
-        if (costBefore > solution.getDistance()){
+        if (costBefore > solution.getDistance()) {
             this.incrementRecorder(invertedIndex.get(operator));
         }
     }
 
-    public void adaptiveLocalSearch(Solution solution){
+    public void sigmaLearn(Solution solution){
+        Operator operator = this.sigmaGreedy();
+        double costBefore = solution.getDistance();
+        operator.doOperateAll(solution);
+        if (costBefore > solution.getDistance()) {
+            this.incrementRecorder(invertedIndex.get(operator));
+        }
+    }
+
+
+    public void adaptiveLocalSearch(Solution solution) {
         Operator operator = rouletteWheel();
         operator.doOperateAll(solution);
     }
 
-    public void incrementRecorder(int index){
-        successRecorder.set(index,successRecorder.get(index)+1);
+    public void incrementRecorder(int index) {
+        successRecorder.set(index, successRecorder.get(index) + 1);
         counter++;
     }
 
-    public void resetRecorder(int index){
+    public void resetRecorder(int index) {
         counter -= successRecorder.get(index);
-        successRecorder.set(index,0);
+        successRecorder.set(index, 0);
     }
 
-    public void resetRecorder(){
+    public void resetRecorder() {
         for (int i = 0; i < successRecorder.size(); i++) {
             resetRecorder(i);
         }
     }
 
-    public Operator rouletteWheel(){
+    public Operator rouletteWheel() {
         int[] cumSum = new int[operators.size() + 1];
         for (int i = 1; i < operators.size() + 1; i++) {
             cumSum[i] += cumSum[i - 1] + successRecorder.get(i - 1);
@@ -98,7 +105,7 @@ public class OperatorManager {
         double v = RandomController.nextDouble() * counter;
         int ptr = 0;
         for (int i = 0; i < operators.size(); i++) {
-            if (v>cumSum[i]&&v<=cumSum[i+1]) {
+            if (v > cumSum[i] && v <= cumSum[i + 1]) {
                 ptr = i;
                 break;
             }
@@ -106,10 +113,11 @@ public class OperatorManager {
         return operators.get(ptr);
     }
 
-    public Operator sigmaGreedy(){
-        if (RandomController.nextDouble()<sigma){
+
+    public Operator sigmaGreedy() {
+        if (RandomController.nextDouble() < sigma) {
             return randomOpt();
-        }else {
+        } else {
             return rouletteWheel();
         }
     }

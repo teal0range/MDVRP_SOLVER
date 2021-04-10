@@ -53,11 +53,11 @@ public class Solution {
         return autoIncrement;
     }
 
-    public double getDistance(){
+    public double getDistance() {
         return distance;
     }
 
-    public void updateDistance(double delta){
+    public void updateDistance(double delta) {
         this.distance += delta;
     }
 

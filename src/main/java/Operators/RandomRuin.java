@@ -11,5 +11,6 @@ public class RandomRuin implements Ruin {
 
     @Override
     public void doInnerRuin(Solution solution, OperationContext context) {
+
     }
 }

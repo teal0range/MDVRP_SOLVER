@@ -17,20 +17,20 @@ public class RandomController {
         return random.nextInt(bound);
     }
 
-    public static double nextDouble(double bound){
+    public static double nextDouble(double bound) {
         return bound * random.nextDouble();
     }
 
-    public static double nextDouble(){
+    public static double nextDouble() {
         return nextDouble(1);
     }
 
-    public static ArrayList<Integer> randIndex(int bound){
-        ArrayList<Integer> res = new ArrayList<>(Math.max(bound,0));
+    public static ArrayList<Integer> randIndex(int bound) {
+        ArrayList<Integer> res = new ArrayList<>(Math.max(bound, 0));
         for (int i = 0; i < bound; i++) {
             res.add(i);
         }
-        Collections.shuffle(res,random);
+        Collections.shuffle(res, random);
         return res;
     }
 }
