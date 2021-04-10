@@ -99,10 +99,9 @@ public class EntryTest {
             if (Math.abs(solution.refreshDistance()-distance)>0.001)
                 System.out.println(i + " "+operationSelector.getClass().getName());
             Assert.assertEquals(solution.refreshDistance(),distance,0.001);
-            if (i%10==0) {
+            if (i%20==0) {
 //                new Insertion(problem).doOperateAll(solution);
-                perturbation.perturb(solution, 3);
-                solution.refreshDistance();
+                perturbation.perturb(solution, 5);
             }
         }
         Assert.assertTrue(validChecker(solution));

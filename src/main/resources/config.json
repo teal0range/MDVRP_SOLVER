@@ -22,5 +22,14 @@
     "Shift20",
     "Swap22",
     "Swap11"
-  ]
+  ],
+  "parameters": {
+    "sigma": 0.1,
+    "iterMax": 500,
+    "Nshake": 5,
+    "maxLevel": 3,
+    "alsTraining": 0.15,
+    "alsReset": 0.3,
+    "maxTime": 60
+  }
 }

@@ -10,6 +10,7 @@ import java.io.FileReader;
 public class ConfigReader implements IConfigReader<BasicConfig> {
 
     private static final ConfigReader configReader = new ConfigReader();
+    private BasicConfig basicConfig = null;
 
     private ConfigReader(){}
 
@@ -20,13 +21,15 @@ public class ConfigReader implements IConfigReader<BasicConfig> {
     @Override
     public BasicConfig readConfig() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/main/resources/config.json"));
-            Gson gson = new Gson();
-            JsonObject object = (JsonObject) new JsonParser().parse(br);
-            return gson.fromJson(object, BasicConfig.class);
+            if (basicConfig==null) {
+                BufferedReader br = new BufferedReader(new FileReader("src/main/resources/config.json"));
+                Gson gson = new Gson();
+                JsonObject object = (JsonObject) new JsonParser().parse(br);
+                basicConfig = gson.fromJson(object, BasicConfig.class);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return new BasicConfig();
         }
+        return basicConfig;
     }
 }

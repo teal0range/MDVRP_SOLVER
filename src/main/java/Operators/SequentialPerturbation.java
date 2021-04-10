@@ -10,9 +10,11 @@ public class SequentialPerturbation implements IPerturbation, OperationSelector 
     public static final List<String> optNames = ConfigReader.getInstance().readConfig().perturbation;
     public final OperatorManager operatorManager;
     public final double threshold = 10;
+    private int counter;
 
     public SequentialPerturbation(Problem problem) {
         operatorManager = OperatorManager.getInstance(problem, optNames);
+        counter = 0;
     }
 
     @Override
@@ -39,8 +41,8 @@ public class SequentialPerturbation implements IPerturbation, OperationSelector 
 
     @Override
     public void doOperateRandom(Solution solution, double threshold) {
-        for (int i = 0; i < operatorManager.size(); i++) {
-            operatorManager.getOpt(i).doOperateRandom(solution, threshold);
-        }
+        operatorManager.getOpt(counter).doOperateRandom(solution, threshold);
+        counter++;
+        counter %= operatorManager.size();
     }
 }
