@@ -9,10 +9,11 @@ import Operators.RecreatePerturbation;
 import Utils.TimeController;
 import org.apache.log4j.Logger;
 
-import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class VNSALS {
@@ -37,7 +38,8 @@ public class VNSALS {
         bestSolution = new Solution(solution);
         TimeController.setTimeLimit(((Double) parameters.get("maxTime")).intValue());
         TimeController.reset();
-        startLogging(solution);
+        RuntimeLogger runtimeLogger = new RuntimeLogger(solution, logger);
+        runtimeLogger.start();
         int noImprove = 0, weightReset=0;
         iter = 0;
         int IterMax = ((Double) parameters.get("iterMax")).intValue();
@@ -63,43 +65,47 @@ public class VNSALS {
                 weightReset = 0;
             }
         }
+        runtimeLogger.stop();
     }
+    private class RuntimeLogger{
+        public final ScheduledExecutorService service;
+        public final ArrayList<Runnable> tasks = new ArrayList<>();
+        public final Solution solution;
+        public final Logger logger;
 
-    public void startLogging(Solution solution){
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        Thread distanceDaemon = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                service.scheduleWithFixedDelay(new Runnable() {
-                    public void run() {
-                        double currentDistance;
-                        synchronized (solution){
-                            currentDistance = solution.getDistance();
-                        }
-                        synchronized (this) {
-                            logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
-                        }
+        public RuntimeLogger(Solution solution, Logger logger) {
+            this.solution = solution;
+            this.logger = logger;
+            tasks.add(new Runnable() {
+                @Override
+                public void run() {
+                    double currentDistance;
+                    synchronized (RuntimeLogger.this.solution){
+                        currentDistance = RuntimeLogger.this.solution.getDistance();
                     }
-                }, 0, 1, TimeUnit.SECONDS);
-            }
-        });
-        distanceDaemon.setDaemon(true);
-
-        Thread weightDaemon = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                service.scheduleWithFixedDelay(new Runnable() {
-                    public void run() {
-                        synchronized (this) {
-                            logger.info(String.format("%s", operatorManager.getSuccessRecorder()));
-                        }
+                    synchronized (this) {
+                        logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
                     }
-                },0,10, TimeUnit.SECONDS);
-            }
-        });
-       weightDaemon.setDaemon(true);
+                }
+            });
+            tasks.add(new Runnable() {
+                @Override
+                public void run() {
+                    synchronized (this) {
+                        logger.info(String.format("%s", operatorManager.getSuccessRecorder()));
+                    }
+                }
+            });
+            service = new ScheduledThreadPoolExecutor(tasks.size());
+        }
 
-       distanceDaemon.start();
-       weightDaemon.start();
+        public void start(){
+            service.scheduleWithFixedDelay(tasks.get(0),0,1,TimeUnit.SECONDS);
+            service.scheduleWithFixedDelay(tasks.get(1),0,10,TimeUnit.SECONDS);
+        }
+
+        public void stop(){
+            service.shutdown();
+        }
     }
 }
