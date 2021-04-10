@@ -12,6 +12,7 @@ public class OperatorManager {
     public static final List<String> opt2Load = ConfigReader.getInstance().readConfig().operators;
     private static final HashMap<Problem, OperatorManager> operatorManagerHashMap = new HashMap<>();
     private final List<Operator> operators;
+    public static HashMap<Operator,Integer> successRecorder;
 
     private OperatorManager(Problem problem) {
         operators = new ArrayList<>();
@@ -33,6 +34,7 @@ public class OperatorManager {
                 Class<?> opt = Class.forName(String.format("Operators.%s", optName));
                 Operator operator = (Operator) opt.getConstructor(Problem.class).newInstance(problem);
                 operators.add(operator);
+                successRecorder.putIfAbsent(operator,0);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +58,15 @@ public class OperatorManager {
                 '}';
     }
 
-    public Operator RandomOpt() {
+    public void incrementRecorder(Operator operator){
+        successRecorder.computeIfPresent(operator,(k,v)->v+1);
+    }
+
+    public void resetRecorder(Operator operator){
+        successRecorder.computeIfPresent(operator,(k,v)->0);
+    }
+
+    public Operator randomOpt() {
         return operators.get(RandomController.nextInt(operators.size()));
     }
 
