@@ -57,7 +57,7 @@ public class ClusterRefinement1 implements  ClusterRefinementCriteria{
             for (Route route : solution.routes) {
                 for (int i = 0; i < route.length(); ++i) {
                     Customer customer = (Customer) route.getNode(i);
-                    double curCost = alpha * solution.problem.getDistance(depotA, customer) +
+                    double curCost = alpha * solution.problem.getDistance(depot, customer) +
                             beta * customer.need;
                     if (minCost > curCost) {
                         minCost = curCost;
