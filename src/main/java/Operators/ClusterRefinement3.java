@@ -1,12 +1,14 @@
 package Operators;
 
-import Common.*;
+import Common.Customer;
+import Common.Depot;
+import Common.Route;
+import Common.Solution;
 import IO.ConfigReader;
 
 import java.util.Map;
 
-public class ClusterRefinement1 implements  ClusterRefinementCriteria{
-
+public class ClusterRefinement3 implements ClusterRefinementCriteria{
     @Override
     public void doClusterRefinement(Solution solution) {
         Map<String, Object> parameters = ConfigReader.getInstance().readConfig().parameters;
@@ -26,7 +28,6 @@ public class ClusterRefinement1 implements  ClusterRefinementCriteria{
                 }
             }
         }
-        assert (depotA != null);
 
         // find the most expensive customer to shift
         double maxCost = Double.MIN_VALUE;
@@ -46,7 +47,7 @@ public class ClusterRefinement1 implements  ClusterRefinementCriteria{
                 }
             }
         }
-        assert (customerAPos != -1);
+        assert (customerAPos!=-1);
 
         // fine the position of the customer to shift
         double minCost = Double.MAX_VALUE;
@@ -54,12 +55,17 @@ public class ClusterRefinement1 implements  ClusterRefinementCriteria{
         int shiftPos = -1;
         for(Depot depot:solution.problem.depots) {
             if (depot == depotA) continue;
+            double costDepot = 0;
+            for(Route route: solution.routes) {
+                if(route.start == depot) // TODO: 是否能直接比较
+                    costDepot += route.getDistance();
+            }
             for (Route route : solution.routes) {
                 if(route.start != depot) continue;
                 for (int i = 0; i < route.length(); ++i) {
                     Customer customer = (Customer) route.getNode(i);
-                    double curCost = alpha * solution.problem.getDistance(depot, customer) +
-                            beta * customer.need;
+                    double curCost = (alpha * solution.problem.getDistance(depot, customer) +
+                            beta * customer.need) / costDepot;
                     if (minCost > curCost) {
                         minCost = curCost;
                         shiftRoute = route;
