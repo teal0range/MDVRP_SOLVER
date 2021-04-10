@@ -1,6 +1,5 @@
 {
   "hardConstraints": [
-    "Time",
     "Weight"
   ],
   "softConstraints": [
@@ -27,6 +26,8 @@
     "sigma": 0.1,
     "iterMax": 1000000,
     "threshold": 5,
-    "maxTime": 60
+    "maxTime": 60,
+    "alpha": 1,
+    "beta": 1
   }
 }

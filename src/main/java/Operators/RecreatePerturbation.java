@@ -4,7 +4,7 @@ import Common.Problem;
 import Common.Solution;
 
 public class RecreatePerturbation implements OperationSelector, IPerturbation {
-    OperationSelector operationSelector;
+    Insertion operationSelector;
 
 
     public RecreatePerturbation(Problem problem) {
@@ -20,7 +20,8 @@ public class RecreatePerturbation implements OperationSelector, IPerturbation {
 
     @Override
     public void perturb(Solution solution) {
-        operationSelector.doOperateAll(solution);
+//        operationSelector.doOperateAll(solution);
+        operationSelector.doOperateBest(solution);
     }
 
     @Override
