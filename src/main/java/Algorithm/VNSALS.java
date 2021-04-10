@@ -45,16 +45,17 @@ public class VNSALS {
         int IterMax = ((Double) parameters.get("iterMax")).intValue();
         int threshold = ((Double) parameters.get("threshold")).intValue();
         while (iter < IterMax & !TimeController.timeIsUp()) {
+            double distanceBefore = solution.getDistance();
             operatorManager.sigmaLearn(solution);
             if (solution.getDistance() < bestSolution.getDistance()) {
                 bestSolution = new Solution(solution);
                 perturbation.reset();
                 noImprove = 0;
                 iter = 0;
-            } else {
+            } else if (Math.abs(distanceBefore - solution.getDistance())<0.001){
                 noImprove++;
-                iter++;
             }
+            iter++;
             if (noImprove>threshold) {
                 perturbation.perturb(solution, noImprove);
                 noImprove = 0;
