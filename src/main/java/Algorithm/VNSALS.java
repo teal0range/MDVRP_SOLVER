@@ -32,7 +32,7 @@ public class VNSALS {
         bestSolution = new Solution(solution);
         TimeController.setTimeLimit(((Double) parameters.get("maxTime")).intValue());
         TimeController.reset();
-        int p = 1, iter = 0;
+        int p = 0, k = 0, iter = 0;
         int IterMax = ((Double) parameters.get("iterMax")).intValue();
         int threshold = ((Double) parameters.get("threshold")).intValue();
         while (iter < IterMax & !TimeController.timeIsUp()) {
@@ -41,15 +41,20 @@ public class VNSALS {
                 bestSolution = new Solution(solution);
                 logger.info(bestSolution.getDistance());
                 perturbation.reset();
-                p = 1;
+                p = 0;
                 iter = 0;
             } else {
                 p++;
                 iter++;
             }
-            if (p>threshold) {
-                perturbation.perturb(solution, p);
-                p = 1;
+            if (p > threshold) {
+                perturbation.perturb(solution, p / 2);
+                p = 0;
+                k++;
+            }
+            if (k > threshold) {
+                operatorManager.resetRecorder();
+                k = 0;
             }
         }
     }

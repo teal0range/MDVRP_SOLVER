@@ -70,7 +70,7 @@ public class EntryTest {
     public void randomOpt() throws IOException {
         RandomController.setSeed(1);
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Problem problem = problems[0];
+        Problem problem = problems[3];
         Solution solution = new GreedyGenerator(problem).build();
         List<OperationSelector> opt = new ArrayList<>();
         IPerturbation perturbation = new RecreatePerturbation(problem);

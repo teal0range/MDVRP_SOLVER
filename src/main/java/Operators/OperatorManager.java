@@ -66,7 +66,7 @@ public class OperatorManager {
         }
     }
 
-    public void sigmaLearn(Solution solution){
+    public void sigmaLearn(Solution solution) {
         Operator operator = this.sigmaGreedy();
         double costBefore = solution.getDistance();
         operator.doOperateAll(solution);
