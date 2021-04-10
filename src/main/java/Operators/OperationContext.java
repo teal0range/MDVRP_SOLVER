@@ -14,6 +14,7 @@ public class OperationContext {
     public Node[] operateNodes;
     public Integer[] operatePos;
     public HashMap<String, Object> operateVal;
+
     private OperationContext(Problem problem, operatorType type, Route mainRoute, Route sideRoute, Node[] operateNodes, Integer[] operatePos, HashMap<String, Object> operateVal) {
         this.type = type;
         this.mainRoute = mainRoute;

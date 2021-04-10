@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HardConstraintManager implements HardConstraint {
 
-    public static final ArrayList<String> constraints2Load = new ConfigReader().readConfig().hardConstraints;
+    public static final List<String> constraints2Load = ConfigReader.getInstance().readConfig().hardConstraints;
     private static final HashMap<String, HardConstraintManager> mapper = new HashMap<>();
     protected List<HardConstraint> constraints;
 

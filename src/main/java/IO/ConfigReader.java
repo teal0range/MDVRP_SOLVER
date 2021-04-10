@@ -8,6 +8,15 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class ConfigReader implements IConfigReader<BasicConfig> {
+
+    private static final ConfigReader configReader = new ConfigReader();
+
+    private ConfigReader(){}
+
+    public static ConfigReader getInstance(){
+        return configReader;
+    }
+
     @Override
     public BasicConfig readConfig() {
         try {

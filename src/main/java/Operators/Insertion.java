@@ -1,11 +1,6 @@
 package Operators;
 
-import Common.Customer;
-import Common.Depot;
-import Common.Node;
-import Common.Problem;
-import Common.Route;
-import Common.Solution;
+import Common.*;
 import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;

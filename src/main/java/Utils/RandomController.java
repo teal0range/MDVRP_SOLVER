@@ -18,11 +18,11 @@ public class RandomController {
     }
 
     public static ArrayList<Integer> randIndex(int bound){
-        ArrayList<Integer> res = new ArrayList<>();
+        ArrayList<Integer> res = new ArrayList<>(Math.max(bound,0));
         for (int i = 0; i < bound; i++) {
-            res.set(i, i);
+            res.add(i);
         }
-        Collections.shuffle(res);
+        Collections.shuffle(res,random);
         return res;
     }
 }

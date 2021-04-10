@@ -70,13 +70,14 @@ public class EntryTest {
     public void randomOpt() throws IOException {
         RandomController.setSeed(1);
         Problem[] problems = CourdeauInstanceReader.getReader().readData();
-        Problem problem = problems[4];
+        Problem problem = problems[0];
         Solution solution = new GreedyGenerator(problem).build();
         List<OperationSelector> opt = new ArrayList<>();
+        IPerturbation perturbation = new RecreatePerturbation(problem);
         opt.add(new Shift10(problem));
         opt.add(new Swap11(problem));
         opt.add(new Shift20(problem));
-        opt.add(new Insertion(problem));
+//        opt.add(new Insertion(problem));
         opt.add(new TwoOpt(problem));
         opt.add(new Swap22(problem));
         opt.add(new Swap21(problem));
@@ -98,6 +99,11 @@ public class EntryTest {
             if (Math.abs(solution.refreshDistance()-distance)>0.001)
                 System.out.println(i + " "+operationSelector.getClass().getName());
             Assert.assertEquals(solution.refreshDistance(),distance,0.001);
+            if (i%10==0) {
+//                new Insertion(problem).doOperateAll(solution);
+                perturbation.perturb(solution, 3);
+                solution.refreshDistance();
+            }
         }
         Assert.assertTrue(validChecker(solution));
         System.out.println(bestSol.getDistance());

@@ -2,12 +2,14 @@ package Algorithm;
 
 import Common.Problem;
 import Common.Solution;
+import Operators.IPerturbation;
 import Operators.OperatorManager;
 
 public class VNSALS{
     OperatorManager operatorManager;
     Problem problem;
     Generator generator;
+    IPerturbation perturbation;
 
     public VNSALS(Problem problem) {
         this.operatorManager = OperatorManager.getInstance(problem);

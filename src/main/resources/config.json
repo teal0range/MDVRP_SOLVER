@@ -15,5 +15,12 @@
     "TwoOpt",
     "TwoOptStar1",
     "TwoOptStar2"
+  ],
+  "perturbation": [
+    "Shift10",
+    "Swap21",
+    "Shift20",
+    "Swap22",
+    "Swap11"
   ]
 }

@@ -4,6 +4,9 @@ import Common.Problem;
 import Common.Route;
 import Common.Solution;
 import Constraints.HardConstraint;
+import Utils.RandomController;
+
+import java.util.ArrayList;
 
 public class Shift10 extends Operator {
     public Shift10(Problem problem) {
@@ -50,6 +53,28 @@ public class Shift10 extends Operator {
 
     @Override
     public void doOperateRandom(Solution solution, double threshold) {
-
+        OperationContext context = new OperationContext.Builder(problem, OperationContext.operatorType.Shift10).
+                setOperatePos(new Integer[2]).build();
+        for (Route mainRoute : solution.getRoutes()) {
+            context.setMainRoute(mainRoute);
+            ArrayList<Integer> mainRndIndex = RandomController.randIndex(mainRoute.length());
+            for (Route sideRoute : solution.getRoutes()) {
+                context.setSideRoute(sideRoute);
+                ArrayList<Integer> sideRndIndex = RandomController.randIndex(sideRoute.length());
+                for (int i : mainRndIndex) {
+                    context.setOperatePos(0, i);
+                    for (int j : sideRndIndex) { //插入在指定节点之后
+                        if (mainRoute == sideRoute && (j == i - 1 || j == i)) continue;
+                        context.setOperatePos(1, j - 1);
+                        HardConstraint.ConsStatus status = hardConstraintManager.fulfilled(context);
+                        double costChg = softConstraintManager.fulfilled(context);
+                        if (status == HardConstraint.ConsStatus.FULFILLED && costChg < threshold) {
+                            singleOperate(solution, context);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
