@@ -5,6 +5,9 @@ import Constraints.HardConstraint;
 import Constraints.HardConstraintManager;
 import Constraints.SoftConstraintManager;
 import Utils.RandomController;
+import lombok.Data;
+import lombok.Generated;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +21,9 @@ public class Insertion extends Operator {
 
     private Ruin ruin;
 
+
+    private double destroyRatio = 0.1;
+
     public Insertion(Problem problem, Ruin ruin) {
         super(problem);
         this.ruin = ruin;
@@ -26,6 +32,11 @@ public class Insertion extends Operator {
     public Insertion(Problem problem) {
         super(problem);
         this.ruin = new RandomRuin();
+    }
+
+
+    public void setDestroyRatio(double destroyRatio) {
+        this.destroyRatio = destroyRatio;
     }
 
     public void setRuin(Ruin ruin) {
@@ -90,13 +101,14 @@ public class Insertion extends Operator {
 
     @Override
     public void doOperateAll(Solution solution) {
-        ruin.doOuterRuin(solution);
+        ruin.doOuterRuin(solution,destroyRatio);
         singleOperate(solution, null);
     }
 
     @Override
     public void doOperateBest(Solution solution) {
-
+        ruin.doInnerRuin(solution, destroyRatio);
+        singleOperate(solution,null);
     }
 
     @Override

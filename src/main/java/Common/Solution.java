@@ -82,6 +82,12 @@ public class Solution {
         this.routes.remove(index);
     }
 
+    public void destroy(Route route) {
+        this.unassignedCustomer.addAll(route.getRoute());
+        route.setSolution(null);
+        this.routes.remove(route);
+    }
+
     public void addRoute(Route route) {
         route.setId(autoIncrement++);
         route.setSolution(this);

@@ -58,12 +58,12 @@ public class VNSALS {
             if (noImprove>threshold) {
                 perturbation.perturb(solution, noImprove);
                 noImprove = 0;
-                weightReset++;
+//                weightReset++;
             }
-            if (weightReset>threshold){
-                perturbation.reset();
-                weightReset = 0;
-            }
+//            if (weightReset>threshold){
+//                perturbation.reset();
+//                weightReset = 0;
+//            }
         }
         runtimeLogger.stop();
     }
