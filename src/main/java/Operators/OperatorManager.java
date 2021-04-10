@@ -32,10 +32,10 @@ public class OperatorManager {
                 Class<?> opt = Class.forName(String.format("Operators.%s", optName));
                 Operator operator = (Operator) opt.getConstructor(Problem.class).newInstance(problem);
                 operators.add(operator);
-                successRecorder.add(0);
+                successRecorder.add(1);
                 invertedIndex.put(operator, i);
             }
-            counter = 0;
+            counter = successRecorder.size();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,6 +47,14 @@ public class OperatorManager {
 
     public static OperatorManager getInstance(Problem problem, List<String> optNames) {
         return new OperatorManager(problem, optNames);
+    }
+
+    public Map<String,Double> getSuccessRecorder() {
+        Map<String,Double> mapper = new HashMap<>();
+        for (int i = 0; i < successRecorder.size(); i++) {
+            mapper.put(opt2Load.get(i),successRecorder.get(i)/(double)counter);
+        }
+        return mapper;
     }
 
     @Override
@@ -87,8 +95,8 @@ public class OperatorManager {
     }
 
     public void resetRecorder(int index) {
-        counter -= successRecorder.get(index);
-        successRecorder.set(index, 0);
+        counter -= successRecorder.get(index) - 1;
+        successRecorder.set(index, 1);
     }
 
     public void resetRecorder() {
