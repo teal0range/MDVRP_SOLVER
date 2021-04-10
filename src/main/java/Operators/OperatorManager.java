@@ -49,6 +49,14 @@ public class OperatorManager {
         return new OperatorManager(problem, optNames);
     }
 
+    public Map<String,Double> getSuccessRecorder() {
+        Map<String,Double> mapper = new HashMap<>();
+        for (int i = 0; i < successRecorder.size(); i++) {
+            mapper.put(opt2Load.get(i),successRecorder.get(i)/(double)counter);
+        }
+        return mapper;
+    }
+
     @Override
     public String toString() {
         return "OperatorManager{" +
@@ -87,7 +95,7 @@ public class OperatorManager {
     }
 
     public void resetRecorder(int index) {
-        counter -= successRecorder.get(index);
+        counter -= successRecorder.get(index) - 1;
         successRecorder.set(index, 1);
     }
 

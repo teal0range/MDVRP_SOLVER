@@ -1,6 +1,5 @@
 {
   "hardConstraints": [
-    "Time",
     "Weight"
   ],
   "softConstraints": [

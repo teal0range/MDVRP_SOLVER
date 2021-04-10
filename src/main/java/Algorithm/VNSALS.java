@@ -37,23 +37,11 @@ public class VNSALS {
         bestSolution = new Solution(solution);
         TimeController.setTimeLimit(((Double) parameters.get("maxTime")).intValue());
         TimeController.reset();
-        int noImprove = 0;
+        startLogging(solution);
+        int noImprove = 0, weightReset=0;
         iter = 0;
         int IterMax = ((Double) parameters.get("iterMax")).intValue();
         int threshold = ((Double) parameters.get("threshold")).intValue();
-        Runnable task = new Runnable() {
-            public void run() {
-                double currentDistance;
-                synchronized (solution){
-                    currentDistance = solution.getDistance();
-                }
-                synchronized (this) {
-                    logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
-                }
-            }
-        };
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleWithFixedDelay(task,0,1, TimeUnit.SECONDS);
         while (iter < IterMax & !TimeController.timeIsUp()) {
             operatorManager.sigmaLearn(solution);
             if (solution.getDistance() < bestSolution.getDistance()) {
@@ -68,7 +56,36 @@ public class VNSALS {
             if (noImprove>threshold) {
                 perturbation.perturb(solution, noImprove);
                 noImprove = 0;
+                weightReset++;
+            }
+            if (weightReset>threshold){
+                perturbation.reset();
+                weightReset = 0;
             }
         }
+    }
+
+    public void startLogging(Solution solution){
+        Runnable distanceLogging = new Runnable() {
+            public void run() {
+                double currentDistance;
+                synchronized (solution){
+                    currentDistance = solution.getDistance();
+                }
+                synchronized (this) {
+                    logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
+                }
+            }
+        };
+        Runnable weightLogging = new Runnable() {
+            public void run() {
+                synchronized (this) {
+                    logger.info(String.format("%s", operatorManager.getSuccessRecorder()));
+                }
+            }
+        };
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleWithFixedDelay(distanceLogging,0,1, TimeUnit.SECONDS);
+        service.scheduleWithFixedDelay(weightLogging,0,10, TimeUnit.SECONDS);
     }
 }
