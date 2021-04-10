@@ -32,10 +32,10 @@ public class OperatorManager {
                 Class<?> opt = Class.forName(String.format("Operators.%s", optName));
                 Operator operator = (Operator) opt.getConstructor(Problem.class).newInstance(problem);
                 operators.add(operator);
-                successRecorder.add(0);
+                successRecorder.add(1);
                 invertedIndex.put(operator, i);
             }
-            counter = 0;
+            counter = successRecorder.size();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class OperatorManager {
 
     public void resetRecorder(int index) {
         counter -= successRecorder.get(index);
-        successRecorder.set(index, 0);
+        successRecorder.set(index, 1);
     }
 
     public void resetRecorder() {

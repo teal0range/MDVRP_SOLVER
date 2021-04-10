@@ -9,7 +9,11 @@ import Operators.RecreatePerturbation;
 import Utils.TimeController;
 import org.apache.log4j.Logger;
 
+import java.sql.Time;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class VNSALS {
     Map<String, Object> parameters = ConfigReader.getInstance().readConfig().parameters;
@@ -19,6 +23,7 @@ public class VNSALS {
     IPerturbation perturbation;
     Solution bestSolution;
     Logger logger = Logger.getLogger(VNSALS.class);
+    int iter;
 
     public VNSALS(Problem problem) {
         this.operatorManager = OperatorManager.getInstance(problem);
@@ -32,24 +37,37 @@ public class VNSALS {
         bestSolution = new Solution(solution);
         TimeController.setTimeLimit(((Double) parameters.get("maxTime")).intValue());
         TimeController.reset();
-        int p = 1, iter = 0;
+        int noImprove = 0;
+        iter = 0;
         int IterMax = ((Double) parameters.get("iterMax")).intValue();
         int threshold = ((Double) parameters.get("threshold")).intValue();
+        Runnable task = new Runnable() {
+            public void run() {
+                double currentDistance;
+                synchronized (solution){
+                    currentDistance = solution.getDistance();
+                }
+                synchronized (this) {
+                    logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
+                }
+            }
+        };
+        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleWithFixedDelay(task,0,1, TimeUnit.SECONDS);
         while (iter < IterMax & !TimeController.timeIsUp()) {
             operatorManager.sigmaLearn(solution);
             if (solution.getDistance() < bestSolution.getDistance()) {
                 bestSolution = new Solution(solution);
-                logger.info(bestSolution.getDistance());
                 perturbation.reset();
-                p = 1;
+                noImprove = 0;
                 iter = 0;
             } else {
-                p++;
+                noImprove++;
                 iter++;
             }
-            if (p>threshold) {
-                perturbation.perturb(solution, p);
-                p = 1;
+            if (noImprove>threshold) {
+                perturbation.perturb(solution, noImprove);
+                noImprove = 0;
             }
         }
     }
