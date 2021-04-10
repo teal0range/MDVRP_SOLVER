@@ -66,26 +66,40 @@ public class VNSALS {
     }
 
     public void startLogging(Solution solution){
-        Runnable distanceLogging = new Runnable() {
-            public void run() {
-                double currentDistance;
-                synchronized (solution){
-                    currentDistance = solution.getDistance();
-                }
-                synchronized (this) {
-                    logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
-                }
-            }
-        };
-        Runnable weightLogging = new Runnable() {
-            public void run() {
-                synchronized (this) {
-                    logger.info(String.format("%s", operatorManager.getSuccessRecorder()));
-                }
-            }
-        };
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-        service.scheduleWithFixedDelay(distanceLogging,0,1, TimeUnit.SECONDS);
-        service.scheduleWithFixedDelay(weightLogging,0,10, TimeUnit.SECONDS);
+        Thread distanceDaemon = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                service.scheduleWithFixedDelay(new Runnable() {
+                    public void run() {
+                        double currentDistance;
+                        synchronized (solution){
+                            currentDistance = solution.getDistance();
+                        }
+                        synchronized (this) {
+                            logger.info(String.format("iter:[%06d] best:[%.2f] current:[%.2f]", iter, bestSolution.getDistance(), currentDistance));
+                        }
+                    }
+                }, 0, 1, TimeUnit.SECONDS);
+            }
+        });
+        distanceDaemon.setDaemon(true);
+
+        Thread weightDaemon = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                service.scheduleWithFixedDelay(new Runnable() {
+                    public void run() {
+                        synchronized (this) {
+                            logger.info(String.format("%s", operatorManager.getSuccessRecorder()));
+                        }
+                    }
+                },0,10, TimeUnit.SECONDS);
+            }
+        });
+       weightDaemon.setDaemon(true);
+
+       distanceDaemon.start();
+       weightDaemon.start();
     }
 }
