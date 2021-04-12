@@ -86,6 +86,10 @@ public class Route {
         return new ArrayList<>(route);
     }
 
+    public void reverse(){
+        Collections.reverse(route);
+    }
+
     public void subNode(int pos, Node node) {
         Node oldNode = this.route.get(pos);
         this.route.set(pos, node);

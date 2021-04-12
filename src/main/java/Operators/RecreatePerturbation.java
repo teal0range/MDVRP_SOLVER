@@ -2,6 +2,9 @@ package Operators;
 
 import Common.Problem;
 import Common.Solution;
+import Utils.RandomController;
+
+import java.util.Collections;
 
 public class RecreatePerturbation implements OperationSelector, IPerturbation {
     Insertion operationSelector;
@@ -22,6 +25,15 @@ public class RecreatePerturbation implements OperationSelector, IPerturbation {
     public void perturb(Solution solution) {
 //        operationSelector.doOperateAll(solution);
         operationSelector.doOperateBest(solution);
+        randomReverse(solution);
+    }
+
+    public void randomReverse(Solution solution){
+        for (int i = 0; i < solution.routes.size(); i++) {
+            if (RandomController.nextDouble() < 0.1){
+                solution.routes.get(i).reverse();
+            }
+        }
     }
 
     @Override
